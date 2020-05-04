@@ -25,6 +25,9 @@
     "work-tracking-e2e": {
       "tags": [],
       "implicitDependencies": ["work-tracking"]
+    },
+    "report": {
+      "tags": []
     }
   }
 }
