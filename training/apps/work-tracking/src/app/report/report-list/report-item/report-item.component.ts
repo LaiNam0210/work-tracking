@@ -1,4 +1,5 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { Report } from "@training/report";
 
 @Component({
   selector: "training-report-item",
@@ -6,6 +7,8 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./report-item.component.scss"],
 })
 export class ReportItemComponent implements OnInit {
+  @Input() report: Report;
+
   constructor() {}
 
   ngOnInit(): void {}

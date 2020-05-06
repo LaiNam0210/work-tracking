@@ -1,1 +1,13 @@
-<training-report-item></training-report-item>
+<div>
+  <training-report-item
+    *ngFor="let report of reports"
+    [report]="report"
+  ></training-report-item>
+  <div *ngIf="errorMessage.length">
+    <h2>Error: {{ errorMessage }}</h2>
+  </div>
+  <div *ngIf="noReportCreated">
+    <h2>There is no report created!</h2>
+  </div>
+
+</div>
