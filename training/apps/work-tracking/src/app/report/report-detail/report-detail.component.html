@@ -1,1 +1,12 @@
-<p>report-detail works!</p>
+<div class="report-detail-container">
+  <h1>ID: {{report.id}}</h1>
+  <p>Time created: {{report.timeCreated}}</p>
+  <div class="button-holder">
+    <button mat-raised-button color="accent">Edit Report</button>
+    <button mat-raised-button color="warn" (click)="onDelete()">Delete Report</button>
+  </div>
+  <hr/>
+  <p>Job yesterday: {{report.jobYesterday}}</p>
+  <p>Problems: {{report.problems}}</p>
+  <p>Job today: {{report.jobToday}}</p>
+</div>

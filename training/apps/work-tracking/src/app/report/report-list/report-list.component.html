@@ -1,7 +1,8 @@
 <div>
   <training-report-item
-    *ngFor="let report of reports"
+    *ngFor="let report of reports; let i = index"
     [report]="report"
+    [index] ="i"
   ></training-report-item>
   <div *ngIf="errorMessage.length">
     <h2>Error: {{ errorMessage }}</h2>

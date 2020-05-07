@@ -17,7 +17,7 @@ export class ReportListComponent implements OnInit {
   }
 
   fetch() {
-    this.http.get<Report[]>('/api/reports')
+    this.http.get<Report[]>('/api/report')
       .subscribe(
         (reports: Report[]) => {
           this.reports = reports;

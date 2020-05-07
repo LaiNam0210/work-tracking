@@ -8,6 +8,7 @@ import { Report } from "@training/report";
 })
 export class ReportItemComponent implements OnInit {
   @Input() report: Report;
+  @Input() index: number;
 
   constructor() {}
 
