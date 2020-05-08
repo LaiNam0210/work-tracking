@@ -1,4 +1,4 @@
-<div class="report-detail-container">
+<div class="report-detail-container" *ngIf="report$ | async as report">
   <h1>ID: {{report.id}}</h1>
   <p>Time created: {{report.timeCreated}}</p>
   <div class="button-holder">
