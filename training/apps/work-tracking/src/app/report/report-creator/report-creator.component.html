@@ -1,1 +1,47 @@
-<p>report-creator works!</p>
+<h1>Create a new report</h1>
+
+<form class="report-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <mat-form-field appearance="fill" class="report-field">
+    <mat-label>What I did yesterday</mat-label>
+    <textarea
+      matInput
+      #jobYesterdayTextarea
+      ngModel
+      name="jobYesterday"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="report-field">
+    <mat-label>Problems I have faced</mat-label>
+    <textarea
+      matInput
+      #problemsTextarea
+      ngModel
+      name="problems"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="report-field">
+    <mat-label>My plan for today</mat-label>
+    <textarea
+      matInput
+      #jobTodayTextarea
+      ngModel
+      name="jobToday"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <div class="btn-container">
+    <button
+      mat-raised-button
+      color="primary"
+      class="report-create-btn"
+      [disabled]="!f.valid"
+    >
+      New report
+    </button>
+  </div>
+</form>

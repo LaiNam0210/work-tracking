@@ -1,31 +1,35 @@
 @import 'apps/work-tracking/src/app/app.component.scss';
 
-.grid-container {
-  display: grid;
-  grid-template-areas:
-    'report-creator report-detail'
-    'report-list report-detail';
-  padding: $grid-outer-padding;
-  grid-gap: $grid-gap;
-  height: calc(100vh - #{$grid-outer-padding}* 2);
+$header-padding: 16px;
+$header-height: 40px;
+
+.container {
+  padding: $app-margin;
 }
 
-.grid-container > div {
-  width: calc(50vw - #{$grid-outer-padding} - #{$grid-gap});
+.fluid {
+  height: 100vh;
 }
 
-.grid-item-report-creator {
-  grid-area: report-creator;
-  height: calc(50vh - #{$grid-outer-padding} - #{$grid-gap});
+.container-fluid {
+  @extend .container, .fluid;
 }
 
-.grid-item-report-detail {
-  grid-area: report-detail;
-  height: calc(100vh - 2 *#{$grid-outer-padding});
+.heading-container {
+  height: $header-height;
+  margin: $header-padding 0 0 $header-padding;
+  h1 {
+    color: $primary-color;
+  }
 }
 
-.grid-item-report-list {
-  grid-area: report-list;
-  height: calc(50vh - #{$grid-outer-padding} - #{$grid-gap});
+.xs-size {
+  height: 100vh;
+}
+
+.list-container {
+  height: calc(
+    100vh - #{$header-padding} - #{$header-height} - #{2 * $app-margin}
+  );
   overflow: auto;
 }

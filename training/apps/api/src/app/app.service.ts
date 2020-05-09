@@ -19,7 +19,16 @@ export class AppService {
       'Implement showing a report in detail',
       'Routing',
       'Fix bugs having in yesterday work.'
-    )
+    ),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy'),
+    new Report('Dummy', 'Dummy', 'Dummy')
   ];
 
   getReports(): Report[] {

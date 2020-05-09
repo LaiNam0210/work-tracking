@@ -1,0 +1,28 @@
+@import 'apps/work-tracking/src/app/app.component.scss';
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-field {
+  flex-grow: 1;
+}
+
+.report-create-btn {
+  width: 50%;
+}
+
+.btn-container {
+  @extend .report-form;
+  align-items: center;
+  justify-content: center;
+}
+
+.report-create-btn {
+  width: 50%;
+}
+
+h1 {
+  color: $primary-color;
+}

@@ -1,11 +1,25 @@
-<div class="grid-container">
-  <div class="grid-item-report-creator">
-    <training-report-creator></training-report-creator>
+<div
+  class="container fluid"
+  [ngClass.xs]="{ fluid: false }"
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutGap="18px"
+>
+  <div fxFlex="50%" fxFlex.xs="100%" ngClass.xs="xs-size">
+    <div class="heading-container">
+      <h1>List of reports</h1>
+    </div>
+    <div class="list-container">
+      <training-report-list></training-report-list>
+    </div>
   </div>
-  <div class="grid-item-report-list">
-    <training-report-list></training-report-list>
-  </div>
-  <div class="grid-item-report-detail">
-    <router-outlet></router-outlet>
+
+  <div fxLayout="column" fxFlex="50%" fxLayoutGap="18px">
+    <div fxFlex>
+      <router-outlet></router-outlet>
+    </div>
+    <div fxFlex>
+      <training-report-creator></training-report-creator>
+    </div>
   </div>
 </div>
