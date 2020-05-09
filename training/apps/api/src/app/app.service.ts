@@ -6,19 +6,16 @@ import { Report } from '@training/report';
 export class AppService {
   private reports: Report[] = [
     new Report(
-      '1',
       'Implement mock database',
       'I dont know anything about database',
       'Implement showing list of reports'
     ),
     new Report(
-      '2',
       'Implement showing list of reports',
       'Nothing',
       'Implement showing a report in detail'
     ),
     new Report(
-      '3',
       'Implement showing a report in detail',
       'Routing',
       'Fix bugs having in yesterday work.'

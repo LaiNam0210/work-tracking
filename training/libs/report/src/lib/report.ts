@@ -1,29 +1,17 @@
+import { format } from 'date-fns';
+import { generateId } from './utils/utils';
+
 export class Report {
   id: string;
-  jobYesterday: string;
-  problems: string;
-  jobToday: string;
   timeCreated: string;
 
   constructor(
-    id: string,
-    jobYesterday: string,
-    problems: string,
-    jobToday: string
+    public jobYesterday: string,
+    public problems: string,
+    public jobToday: string
   ) {
-    this.id = id;
-    this.jobYesterday = jobYesterday;
-    this.problems = problems;
-    this.jobToday = jobToday;
-    const today = new Date();
-    const date =
-      today.getFullYear() +
-      '-' +
-      (today.getMonth() + 1) +
-      '-' +
-      today.getDate();
-    const time =
-      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-    this.timeCreated = date + ' ' + time;
+    this.id = generateId();
+    const now = Date.now();
+    this.timeCreated = format(now, 'Pp');
   }
 }
