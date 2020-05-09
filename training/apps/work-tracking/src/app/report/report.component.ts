@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "training-report",
-  templateUrl: "./report.component.html",
-  styleUrls: ["./report.component.scss"],
+  selector: 'training-report',
+  templateUrl: './report.component.html',
+  styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit {
   constructor() {}

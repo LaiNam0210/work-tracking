@@ -1,10 +1,9 @@
-<a
-  [routerLink]="[index]"
-  routerLinkActive="active-link"
->
-  <mat-card >
-    <mat-card-title >Time created: {{report.timeCreated}}</mat-card-title>
-    <mat-card-content>Job: {{report.jobYesterday}}</mat-card-content>
-    <mat-card-subtitle style="float:right">ID: {{report.id}}</mat-card-subtitle>
+<a [routerLink]="[index]" routerLinkActive="active-link">
+  <mat-card>
+    <mat-card-title>Time created: {{ report.timeCreated }}</mat-card-title>
+    <mat-card-content>Job: {{ report.jobYesterday }}</mat-card-content>
+    <mat-card-subtitle style="float:right"
+      >ID: {{ report.id }}</mat-card-subtitle
+    >
   </mat-card>
 </a>

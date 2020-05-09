@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportListComponent } from "./report-list.component";
+import { ReportListComponent } from './report-list.component';
 
-describe("ReportListComponent", () => {
+describe('ReportListComponent', () => {
   let component: ReportListComponent;
   let fixture: ComponentFixture<ReportListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ReportListComponent],
+      declarations: [ReportListComponent]
     }).compileComponents();
   }));
 
@@ -18,7 +18,7 @@ describe("ReportListComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

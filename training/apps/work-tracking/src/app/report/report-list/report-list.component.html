@@ -2,7 +2,7 @@
   <training-report-item
     *ngFor="let report of reports; let i = index"
     [report]="report"
-    [index] ="i"
+    [index]="i"
   ></training-report-item>
   <div *ngIf="errorMessage.length">
     <h2>Error: {{ errorMessage }}</h2>
@@ -10,5 +10,4 @@
   <div *ngIf="noReportCreated">
     <h2>There is no report created!</h2>
   </div>
-
 </div>

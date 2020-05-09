@@ -87,10 +87,7 @@
               "apps/work-tracking/tsconfig.app.json",
               "apps/work-tracking/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/work-tracking/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/work-tracking/**"]
           }
         },
         "test": {
@@ -125,13 +122,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/work-tracking-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/work-tracking-e2e/**"
-            ]
+            "tsConfig": ["apps/work-tracking-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/work-tracking-e2e/**"]
           }
         }
       }
@@ -149,10 +141,7 @@
               "libs/report/tsconfig.lib.json",
               "libs/report/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/report/**"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/report/**"]
           }
         },
         "test": {
@@ -178,9 +167,7 @@
             "outputPath": "dist/apps/api",
             "main": "apps/api/src/main.ts",
             "tsConfig": "apps/api/tsconfig.app.json",
-            "assets": [
-              "apps/api/src/assets"
-            ]
+            "assets": ["apps/api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -209,10 +196,7 @@
               "apps/api/tsconfig.app.json",
               "apps/api/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/api/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
           }
         },
         "test": {

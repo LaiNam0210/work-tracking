@@ -1,14 +1,14 @@
 @import 'apps/work-tracking/src/app/app.component.scss';
 
 a {
-  text-decoration:none;
+  text-decoration: none;
   cursor: pointer;
 }
 
 .active-link {
   * {
     background-color: #dddddd;
-    color: $primary-color
+    color: $primary-color;
   }
 }
 
