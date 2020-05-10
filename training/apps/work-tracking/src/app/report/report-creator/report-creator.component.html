@@ -1,45 +1,40 @@
 <h1>Create a new report</h1>
 
-<form class="report-form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+<form
+  class="report-form"
+  [formGroup]="reportForm"
+  (ngSubmit)="onReportSubmit()"
+>
   <mat-form-field appearance="fill" class="report-field">
     <mat-label>What I did yesterday</mat-label>
     <textarea
       matInput
-      #jobYesterdayTextarea
-      ngModel
       name="jobYesterday"
-      required
+      formControlName="jobYesterday"
     ></textarea>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="report-field">
     <mat-label>Problems I have faced</mat-label>
-    <textarea
-      matInput
-      #problemsTextarea
-      ngModel
-      name="problems"
-      required
-    ></textarea>
+    <textarea matInput name="problems" formControlName="problems"></textarea>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="report-field">
     <mat-label>My plan for today</mat-label>
-    <textarea
-      matInput
-      #jobTodayTextarea
-      ngModel
-      name="jobToday"
-      required
-    ></textarea>
+    <textarea matInput name="jobToday" formControlName="jobToday"></textarea>
   </mat-form-field>
 
   <div class="btn-container">
     <button
+      type="submit"
       mat-raised-button
       color="primary"
       class="report-create-btn"
-      [disabled]="!f.valid"
+      [disabled]="
+        reportForm.get('jobYesterday').invalid ||
+        reportForm.get('problems').invalid ||
+        reportForm.get('jobToday').invalid
+      "
     >
       New report
     </button>

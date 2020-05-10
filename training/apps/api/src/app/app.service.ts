@@ -39,7 +39,9 @@ export class AppService {
     return this.reports[index];
   }
 
-  addReport(report: Report): void {
+  addReport(jobYesterday: string, problems: string, jobToday: string) {
+    const report = new Report(jobYesterday, problems, jobToday);
     this.reports.unshift(report);
+    return report.id;
   }
 }
