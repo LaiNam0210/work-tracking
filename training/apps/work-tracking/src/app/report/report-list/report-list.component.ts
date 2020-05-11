@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Report } from '@training/report';
-import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ReportEntity, ReportFacade } from '@training/store/report';
 
 @Component({
   selector: 'training-report-list',
@@ -8,25 +9,15 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./report-list.component.scss']
 })
 export class ReportListComponent implements OnInit {
-  reports: Report[] = [];
+  reports$: Observable<ReportEntity[]>;
   noReportCreated = false;
   errorMessage = '';
 
-  constructor(private http: HttpClient) {
-    this.fetch();
+  constructor(public reportFacade: ReportFacade) {
+    this.reportFacade.loadReports();
   }
 
-  fetch() {
-    this.http.get<Report[]>('/api/report').subscribe(
-      (reports: Report[]) => {
-        this.reports = reports;
-        if (reports.length === 0) {
-          this.noReportCreated = true;
-        }
-      },
-      error => (this.errorMessage = error.message)
-    );
+  ngOnInit(): void {
+    this.reports$ = this.reportFacade.allReport$;
   }
-
-  ngOnInit(): void {}
 }

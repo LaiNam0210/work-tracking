@@ -16,7 +16,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@training/report": ["libs/report/src/index.ts"]
+      "@training/report": ["libs/report/src/index.ts"],
+      "@training/store/report": ["libs/store/report/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
