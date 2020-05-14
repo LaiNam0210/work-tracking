@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { Report } from '@training/report';
@@ -29,5 +29,10 @@ export class AppController {
       jobToday
     );
     return addedReport;
+  }
+
+  @Delete('delete_report/:index')
+  deleteReport(@Param('index') index: string): { deletedId: string } {
+    return this.appService.deleteReport(+index);
   }
 }

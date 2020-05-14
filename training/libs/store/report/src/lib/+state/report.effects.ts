@@ -41,6 +41,7 @@ export class ReportEffects {
             .post<Report>('/api/add_report', action.newReport)
             .pipe(
               map((addedReport: Report) => {
+                alert(`Added report with id ${addedReport.id}`);
                 return ReportActions.addReportSuccess({
                   addedReport: addedReport
                 });
@@ -50,6 +51,30 @@ export class ReportEffects {
 
         onError: (action, error) => {
           console.error('Error', error);
+          return ReportActions.addReportFailure({ error });
+        }
+      })
+    )
+  );
+
+  deleteReport$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReportActions.deleteReport),
+      fetch({
+        run: action => {
+          const url = `/api/delete_report/${action.index}`;
+          return this.http.delete<{ deletedId: string }>(url).pipe(
+            map((obj: { deletedId: string }) => {
+              alert(`Deleted report with id ${obj.deletedId}`);
+              return ReportActions.deleteReportSuccess({
+                deletedId: obj.deletedId
+              });
+            })
+          );
+        },
+
+        onError: (action, error) => {
+          console.error('Error from effect: ', error);
           return ReportActions.addReportFailure({ error });
         }
       })

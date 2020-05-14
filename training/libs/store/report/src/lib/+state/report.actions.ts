@@ -33,3 +33,18 @@ export const addReportFailure = createAction(
   '[Report] Add Report Failure',
   props<{ error: any }>()
 );
+
+export const deleteReport = createAction(
+  '[Report] Delete Report',
+  props<{ index: number }>()
+);
+
+export const deleteReportSuccess = createAction(
+  '[Report] Delete Report Success',
+  props<{ deletedId: string }>()
+);
+
+export const deleteReportFailure = createAction(
+  '[Report] Delete Report Failure',
+  props<{ error: any }>()
+);

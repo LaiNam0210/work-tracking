@@ -47,6 +47,15 @@ const reportReducer = createReducer(
   on(ReportActions.addReportFailure, (state, { error }) => ({
     ...state,
     error
+  })),
+
+  on(ReportActions.deleteReport, (state, { index }) => ({ ...state })),
+  on(ReportActions.deleteReportSuccess, (state, { deletedId }) =>
+    reportAdapter.removeOne(deletedId, { ...state })
+  ),
+  on(ReportActions.deleteReportFailure, (state, { error }) => ({
+    ...state,
+    error
   }))
 );
 

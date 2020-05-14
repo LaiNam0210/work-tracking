@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Report } from '@training/report';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+import { Report } from '@training/report';
+import { ReportFacade } from '@training/store/report';
 
 @Component({
   selector: 'training-report-detail',
@@ -13,7 +15,12 @@ import { switchMap } from 'rxjs/operators';
 export class ReportDetailComponent implements OnInit {
   report$: Observable<Report>;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private http: HttpClient,
+    private reportFacade: ReportFacade
+  ) {}
 
   ngOnInit(): void {
     this.report$ = this.route.params.pipe(
@@ -25,6 +32,9 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onDelete(): void {
-    //TODO:
+    let index: number;
+    this.route.params.subscribe(value => (index = +value['index']));
+    this.reportFacade.deleteReport(index);
+    this.router.navigate(['/report']);
   }
 }
