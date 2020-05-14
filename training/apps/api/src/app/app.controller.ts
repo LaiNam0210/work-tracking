@@ -23,11 +23,11 @@ export class AppController {
     @Body('problems') problems: string,
     @Body('jobToday') jobToday: string
   ) {
-    const returnedId = this.appService.addReport(
+    const addedReport = this.appService.addReport(
       jobYesterday,
       problems,
       jobToday
     );
-    return { id: returnedId };
+    return addedReport;
   }
 }

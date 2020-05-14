@@ -1,6 +1,6 @@
 <div class="report-detail-container" *ngIf="report$ | async as report">
   <h1>ID: {{ report.id }}</h1>
-  <p>Time created: {{ report.timeCreated }}</p>
+  <p>Time created: {{ report.timeCreated | date: 'short' }}</p>
   <div class="button-holder">
     <button mat-raised-button color="accent">Edit Report</button>
     <button mat-raised-button color="warn" (click)="onDelete()">

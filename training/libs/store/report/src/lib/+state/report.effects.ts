@@ -31,5 +31,30 @@ export class ReportEffects {
     )
   );
 
+  addReport$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReportActions.addReport),
+      fetch({
+        run: action => {
+          // Your custom service 'load' logic goes here. For now just return a success action...
+          return this.http
+            .post<Report>('/api/add_report', action.newReport)
+            .pipe(
+              map((addedReport: Report) => {
+                return ReportActions.addReportSuccess({
+                  addedReport: addedReport
+                });
+              })
+            );
+        },
+
+        onError: (action, error) => {
+          console.error('Error', error);
+          return ReportActions.addReportFailure({ error });
+        }
+      })
+    )
+  );
+
   constructor(private actions$: Actions, private http: HttpClient) {}
 }

@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { compareAsc } from 'date-fns';
 import {
   REPORT_FEATURE_KEY,
   State,
@@ -23,9 +24,11 @@ export const getReportError = createSelector(
   (state: State) => state.error
 );
 
-export const getAllReport = createSelector(getReportState, (state: State) =>
-  selectAll(state)
-);
+export const getAllReport = createSelector(getReportState, (state: State) => {
+  return selectAll(state).sort(function(a, b) {
+    return compareAsc(new Date(b.timeCreated), new Date(a.timeCreated));
+  });
+});
 
 export const getReportEntities = createSelector(
   getReportState,

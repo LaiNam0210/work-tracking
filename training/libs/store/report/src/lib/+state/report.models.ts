@@ -1,6 +1,8 @@
 /**
  * Interface for the 'Report' data
  */
-export interface ReportEntity {
-  id: string | number; // Primary ID
+import { Report } from '@training/report';
+
+export interface ReportEntity extends Report {
+  id: string; // Primary ID
 }

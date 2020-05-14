@@ -7,7 +7,7 @@ import { ReportEntity } from './report.models';
 export const REPORT_FEATURE_KEY = 'report';
 
 export interface State extends EntityState<ReportEntity> {
-  selectedId?: string | number; // which Report record has been selected
+  selectedId?: string; // which Report record has been selected
   loaded: boolean; // has the Report list been loaded
   error?: string | null; // last none error (if any)
 }
@@ -33,9 +33,18 @@ const reportReducer = createReducer(
     error: null
   })),
   on(ReportActions.loadReportSuccess, (state, { report }) =>
-    reportAdapter.addAll(report, { ...state, loaded: true })
+    reportAdapter.addMany(report, { ...state, loaded: true })
   ),
   on(ReportActions.loadReportFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
+  on(ReportActions.addReport, (state, { newReport }) => ({ ...state })),
+  on(ReportActions.addReportSuccess, (state, { addedReport }) =>
+    reportAdapter.addOne(addedReport, { ...state })
+  ),
+  on(ReportActions.addReportFailure, (state, { error }) => ({
     ...state,
     error
   }))

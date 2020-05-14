@@ -4,7 +4,8 @@ import { select, Store, Action } from '@ngrx/store';
 
 import * as fromReport from './report.reducer';
 import * as ReportSelectors from './report.selectors';
-import { loadReport } from './report.actions';
+import { addReport, loadReport } from './report.actions';
+import { Report } from '@training/report';
 
 @Injectable()
 export class ReportFacade {
@@ -16,6 +17,10 @@ export class ReportFacade {
 
   loadReports() {
     this.dispatch(loadReport());
+  }
+
+  addReport(newReport: Report) {
+    this.dispatch(addReport({ newReport }));
   }
 
   dispatch(action: Action) {

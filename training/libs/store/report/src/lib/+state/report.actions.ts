@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { ReportEntity } from './report.models';
+import { Report } from '@training/report';
 
 export const loadReport = createAction('[Report] Load Report');
 
@@ -10,5 +11,25 @@ export const loadReportSuccess = createAction(
 
 export const loadReportFailure = createAction(
   '[Report] Load Report Failure',
+  props<{ error: any }>()
+);
+
+export const loadReportId = createAction(
+  '[Report] Load Report Id',
+  props<{ id: string }>()
+);
+
+export const addReport = createAction(
+  '[Report] Add Report',
+  props<{ newReport: Report }>()
+);
+
+export const addReportSuccess = createAction(
+  '[Report] Add Report Success',
+  props<{ addedReport: Report }>()
+);
+
+export const addReportFailure = createAction(
+  '[Report] Add Report Failure',
   props<{ error: any }>()
 );
