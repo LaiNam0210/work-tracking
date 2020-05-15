@@ -27,6 +27,7 @@ export const initialState: State = reportAdapter.getInitialState({
 
 const reportReducer = createReducer(
   initialState,
+  /* LOAD */
   on(ReportActions.loadReport, state => ({
     ...state,
     loaded: false,
@@ -40,6 +41,7 @@ const reportReducer = createReducer(
     error
   })),
 
+  /* ADD REPORT */
   on(ReportActions.addReport, (state, { newReport }) => ({ ...state })),
   on(ReportActions.addReportSuccess, (state, { addedReport }) =>
     reportAdapter.addOne(addedReport, { ...state })
@@ -49,9 +51,26 @@ const reportReducer = createReducer(
     error
   })),
 
+  /* DELETE REPORT */
   on(ReportActions.deleteReport, (state, { index }) => ({ ...state })),
   on(ReportActions.deleteReportSuccess, (state, { deletedId }) =>
     reportAdapter.removeOne(deletedId, { ...state })
+  ),
+  on(ReportActions.deleteReportFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
+  /* UPDATE REPORT */
+  on(
+    ReportActions.updateReport,
+    (state, { id, newJYesterday, newProblems, newJToday }) => ({
+      ...state,
+      selectedId: id
+    })
+  ),
+  on(ReportActions.updateReportSuccess, (state, { updatedReport }) =>
+    reportAdapter.updateOne(updatedReport, { ...state })
   ),
   on(ReportActions.deleteReportFailure, (state, { error }) => ({
     ...state,

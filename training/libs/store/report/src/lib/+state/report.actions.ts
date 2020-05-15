@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { ReportEntity } from './report.models';
 import { Report } from '@training/report';
+import { Update } from '@ngrx/entity';
+
+import { ReportEntity } from './report.models';
 
 export const loadReport = createAction('[Report] Load Report');
 
@@ -46,5 +48,25 @@ export const deleteReportSuccess = createAction(
 
 export const deleteReportFailure = createAction(
   '[Report] Delete Report Failure',
+  props<{ error: any }>()
+);
+
+export const updateReport = createAction(
+  '[Report] Update report',
+  props<{
+    id: string;
+    newJYesterday: string;
+    newProblems: string;
+    newJToday: string;
+  }>()
+);
+
+export const updateReportSuccess = createAction(
+  '[Report] Update Report Success',
+  props<{ updatedReport: Update<ReportEntity> }>()
+);
+
+export const updateReportFailure = createAction(
+  '[Report] Update Report Failure',
   props<{ error: any }>()
 );

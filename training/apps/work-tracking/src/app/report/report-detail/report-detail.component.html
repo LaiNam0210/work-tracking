@@ -1,14 +1,70 @@
 <div class="report-detail-container" *ngIf="report$ | async as report">
   <h1>ID: {{ report.id }}</h1>
   <p>Time created: {{ report.timeCreated | date: 'short' }}</p>
-  <div class="button-holder">
-    <button mat-raised-button color="accent">Edit Report</button>
-    <button mat-raised-button color="warn" (click)="onDelete()">
-      Delete Report
-    </button>
+  <div *ngIf="!editMode; else elseBlock">
+    <div class="button-holder">
+      <button mat-raised-button color="accent" (click)="onEdit()">
+        Edit Report
+      </button>
+      <button mat-raised-button color="warn" (click)="onDelete()">
+        Delete Report
+      </button>
+    </div>
+    <hr />
+    <p>Job yesterday: {{ report.jobYesterday }}</p>
+    <p>Problems: {{ report.problems }}</p>
+    <p>Job today: {{ report.jobToday }}</p>
   </div>
-  <hr />
-  <p>Job yesterday: {{ report.jobYesterday }}</p>
-  <p>Problems: {{ report.problems }}</p>
-  <p>Job today: {{ report.jobToday }}</p>
+  <ng-template #elseBlock>
+    <h2>Editing report</h2>
+
+    <form
+      class="report-form"
+      [formGroup]="reportForm"
+      (ngSubmit)="onReportSubmit()"
+    >
+      <mat-form-field appearance="fill" class="report-field">
+        <mat-label>What I did yesterday</mat-label>
+        <textarea
+          [(ngModel)]="jobYesterday"
+          matInput
+          formControlName="newJYesterday"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="report-field">
+        <mat-label>Problems I have faced</mat-label>
+        <textarea
+          [(ngModel)]="problems"
+          matInput
+          formControlName="newProblems"
+        ></textarea>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="report-field">
+        <mat-label>My plan for today</mat-label>
+        <textarea
+          [(ngModel)]="jobToday"
+          matInput
+          formControlName="newJToday"
+        ></textarea>
+      </mat-form-field>
+
+      <div class="btn-container">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="report-create-btn"
+          [disabled]="
+            reportForm.get('newJYesterday').invalid ||
+            reportForm.get('newProblems').invalid ||
+            reportForm.get('newJToday').invalid
+          "
+        >
+          Save changes
+        </button>
+      </div>
+    </form>
+  </ng-template>
 </div>

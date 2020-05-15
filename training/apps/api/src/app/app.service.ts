@@ -37,4 +37,21 @@ export class AppService {
     this.reports.splice(index, index + 1);
     return { deletedId: deletedId };
   }
+
+  updateReport(
+    id: string,
+    newJYesterday: string,
+    newProblems: string,
+    newJToday: string
+  ): Report {
+    for (let i = 0; i < this.reports.length; i++) {
+      const report = this.reports[i];
+      if (report.id === id) {
+        report.jobYesterday = newJYesterday;
+        report.problems = newProblems;
+        report.jobToday = newJToday;
+        return report;
+      }
+    }
+  }
 }

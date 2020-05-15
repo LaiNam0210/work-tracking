@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Update } from '@ngrx/entity';
 
 import * as fromReport from './report.reducer';
 import * as ReportActions from './report.actions';
 import { Report } from '@training/report';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ReportEffects {
@@ -76,6 +77,44 @@ export class ReportEffects {
         onError: (action, error) => {
           console.error('Error from effect: ', error);
           return ReportActions.addReportFailure({ error });
+        }
+      })
+    )
+  );
+
+  updateReport$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReportActions.updateReport),
+      fetch({
+        run: action => {
+          const url = `/api/update_report/`;
+          const body = {
+            id: action.id,
+            newJYesterday: action.newJYesterday,
+            newProblems: action.newProblems,
+            newJToday: action.newJToday
+          };
+          return this.http.put<Report>(url, body).pipe(
+            map(updatedReport => {
+              const update: Update<Report> = {
+                id: action.id,
+                changes: {
+                  jobYesterday: action.newJYesterday,
+                  problems: action.newProblems,
+                  jobToday: action.newJToday
+                }
+              };
+              alert(`Updated report with id ${updatedReport.id}`);
+              return ReportActions.updateReportSuccess({
+                updatedReport: update
+              });
+            })
+          );
+        },
+
+        onError: (action, error) => {
+          console.error('Error from effect: ', error);
+          return ReportActions.updateReportFailure({ error });
         }
       })
     )

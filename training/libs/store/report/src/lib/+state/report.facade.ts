@@ -4,7 +4,12 @@ import { select, Store, Action } from '@ngrx/store';
 
 import * as fromReport from './report.reducer';
 import * as ReportSelectors from './report.selectors';
-import { addReport, loadReport, deleteReport } from './report.actions';
+import {
+  addReport,
+  loadReport,
+  deleteReport,
+  updateReport
+} from './report.actions';
 import { Report } from '@training/report';
 
 @Injectable()
@@ -25,6 +30,15 @@ export class ReportFacade {
 
   deleteReport(index: number) {
     this.dispatch(deleteReport({ index }));
+  }
+
+  updateReport(
+    id: string,
+    newJYesterday: string,
+    newProblems: string,
+    newJToday: string
+  ) {
+    this.dispatch(updateReport({ id, newJYesterday, newProblems, newJToday }));
   }
 
   dispatch(action: Action) {
