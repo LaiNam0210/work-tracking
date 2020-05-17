@@ -54,7 +54,6 @@ export class ReportDetailComponent implements OnInit {
     let index: number;
     this.route.params.subscribe(value => (index = +value['index']));
     this.reportFacade.deleteReport(index);
-    this.router.navigate(['/report']);
   }
 
   onEdit(): void {
@@ -69,6 +68,5 @@ export class ReportDetailComponent implements OnInit {
       this.problems,
       this.jobToday
     );
-    this.router.navigate(['/report']);
   }
 }

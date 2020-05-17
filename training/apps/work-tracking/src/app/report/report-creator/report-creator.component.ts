@@ -34,6 +34,5 @@ export class ReportCreatorComponent implements OnInit {
     const jobToday = this.reportForm.value.jobToday;
     this.reportFacade.addReport(new Report(jobYesterday, problems, jobToday));
     this.reportNgForm.resetForm();
-    this.router.navigate(['/report']);
   }
 }

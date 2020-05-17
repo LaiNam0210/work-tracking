@@ -8,6 +8,7 @@ import { Update } from '@ngrx/entity';
 import * as fromReport from './report.reducer';
 import * as ReportActions from './report.actions';
 import { Report } from '@training/report';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ReportEffects {
@@ -43,6 +44,7 @@ export class ReportEffects {
             .pipe(
               map((addedReport: Report) => {
                 alert(`Added report with id ${addedReport.id}`);
+                this.router.navigate(['/report']);
                 return ReportActions.addReportSuccess({
                   addedReport: addedReport
                 });
@@ -67,6 +69,7 @@ export class ReportEffects {
           return this.http.delete<{ deletedId: string }>(url).pipe(
             map((obj: { deletedId: string }) => {
               alert(`Deleted report with id ${obj.deletedId}`);
+              this.router.navigate(['/report']);
               return ReportActions.deleteReportSuccess({
                 deletedId: obj.deletedId
               });
@@ -105,6 +108,7 @@ export class ReportEffects {
                 }
               };
               alert(`Updated report with id ${updatedReport.id}`);
+              this.router.navigate(['/report']);
               return ReportActions.updateReportSuccess({
                 updatedReport: update
               });
@@ -120,5 +124,9 @@ export class ReportEffects {
     )
   );
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private router: Router
+  ) {}
 }
