@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -16,7 +21,11 @@ import { ReportFacade } from '@training/store/report';
 export class ReportDetailComponent implements OnInit {
   report$: Observable<Report>;
   editMode = false;
-  reportForm: FormGroup;
+  reportForm = this.fb.group({
+    newJYesterday: [null, Validators.required],
+    newProblems: [null, Validators.required],
+    newJToday: [null, Validators.required]
+  });
   id: string;
   jobYesterday: string;
   problems: string;
@@ -26,7 +35,8 @@ export class ReportDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private http: HttpClient,
-    private reportFacade: ReportFacade
+    private reportFacade: ReportFacade,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +54,11 @@ export class ReportDetailComponent implements OnInit {
       this.jobToday = report.jobToday;
     });
 
-    this.reportForm = new FormGroup({
-      newJYesterday: new FormControl(null, Validators.required),
-      newProblems: new FormControl(null, Validators.required),
-      newJToday: new FormControl(null, Validators.required)
-    });
+    // this.reportForm = new FormGroup({
+    //   newJYesterday: new FormControl(null, Validators.required),
+    //   newProblems: new FormControl(null, Validators.required),
+    //   newJToday: new FormControl(null, Validators.required)
+    // });
   }
 
   onDelete(): void {

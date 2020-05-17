@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -12,21 +12,20 @@ import { ReportFacade } from '@training/store/report';
   styleUrls: ['./report-creator.component.scss']
 })
 export class ReportCreatorComponent implements OnInit {
-  reportForm: FormGroup;
+  reportForm = this.fb.group({
+    jobYesterday: [null, Validators.required],
+    problems: [null, Validators.required],
+    jobToday: [null, Validators.required]
+  });
 
   constructor(
     private http: HttpClient,
     private reportFacade: ReportFacade,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
-  ngOnInit(): void {
-    this.reportForm = new FormGroup({
-      jobYesterday: new FormControl(null, Validators.required),
-      problems: new FormControl(null, Validators.required),
-      jobToday: new FormControl(null, Validators.required)
-    });
-  }
+  ngOnInit(): void {}
 
   onReportSubmit() {
     const jobYesterday = this.reportForm.value.jobYesterday;
