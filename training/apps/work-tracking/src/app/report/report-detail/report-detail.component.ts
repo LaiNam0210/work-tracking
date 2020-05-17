@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -53,12 +48,6 @@ export class ReportDetailComponent implements OnInit {
       this.problems = report.problems;
       this.jobToday = report.jobToday;
     });
-
-    // this.reportForm = new FormGroup({
-    //   newJYesterday: new FormControl(null, Validators.required),
-    //   newProblems: new FormControl(null, Validators.required),
-    //   newJToday: new FormControl(null, Validators.required)
-    // });
   }
 
   onDelete(): void {
