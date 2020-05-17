@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -17,6 +17,7 @@ export class ReportCreatorComponent implements OnInit {
     problems: [null, Validators.required],
     jobToday: [null, Validators.required]
   });
+  @ViewChild(FormGroupDirective) reportNgForm;
 
   constructor(
     private http: HttpClient,
@@ -32,6 +33,7 @@ export class ReportCreatorComponent implements OnInit {
     const problems = this.reportForm.value.problems;
     const jobToday = this.reportForm.value.jobToday;
     this.reportFacade.addReport(new Report(jobYesterday, problems, jobToday));
+    this.reportNgForm.resetForm();
     this.router.navigate(['/report']);
   }
 }
