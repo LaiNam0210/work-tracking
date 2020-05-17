@@ -24,30 +24,43 @@
       (ngSubmit)="onReportSubmit()"
     >
       <mat-form-field appearance="fill" class="report-field">
-        <mat-label>What I did yesterday</mat-label>
+        <mat-label> <mat-icon>work</mat-icon> What I did yesterday </mat-label>
         <textarea
           [(ngModel)]="jobYesterday"
           matInput
           formControlName="newJYesterday"
         ></textarea>
+        <mat-hint align="end">
+          Character count: {{ jobYesterday?.length || 0 }}
+        </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="report-field">
-        <mat-label>Problems I have faced</mat-label>
+        <mat-label>
+          <mat-icon matPrefix>report_problem</mat-icon> Problems I have faced
+        </mat-label>
         <textarea
           [(ngModel)]="problems"
           matInput
           formControlName="newProblems"
         ></textarea>
+        <mat-hint align="end">
+          Character count: {{ problems?.length || 0 }}
+        </mat-hint>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="report-field">
-        <mat-label>My plan for today</mat-label>
+        <mat-label>
+          <mat-icon>trending_up</mat-icon> My plan for today
+        </mat-label>
         <textarea
           [(ngModel)]="jobToday"
           matInput
           formControlName="newJToday"
         ></textarea>
+        <mat-hint align="end">
+          Character count: {{ jobToday?.length || 0 }}
+        </mat-hint>
       </mat-form-field>
 
       <div class="btn-container">
