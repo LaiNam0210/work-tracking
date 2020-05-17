@@ -33,6 +33,28 @@ export class ReportEffects {
     )
   );
 
+  loadReportByIndex$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReportActions.loadReportByIndex),
+      fetch({
+        run: action => {
+          return this.http.get<Report>(`/api/report/${action.index}`).pipe(
+            map((report: Report) => {
+              return ReportActions.loadReportByIndexSuccess({
+                selectedId: report.id
+              });
+            })
+          );
+        },
+
+        onError: (action, error) => {
+          console.error('Error', error);
+          return ReportActions.loadReportByIndexFailure({ error });
+        }
+      })
+    )
+  );
+
   addReport$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ReportActions.addReport),

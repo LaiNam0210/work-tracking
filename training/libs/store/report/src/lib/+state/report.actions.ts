@@ -21,6 +21,21 @@ export const loadReportId = createAction(
   props<{ id: string }>()
 );
 
+export const loadReportByIndex = createAction(
+  '[Report] Load Report By Index',
+  props<{ index: number }>()
+);
+
+export const loadReportByIndexSuccess = createAction(
+  '[Report] Load Report By Index Success',
+  props<{ selectedId: string }>()
+);
+
+export const loadReportByIndexFailure = createAction(
+  '[Report] Load Report By Index Failure',
+  props<{ error: any }>()
+);
+
 export const addReport = createAction(
   '[Report] Add Report',
   props<{ newReport: Report }>()

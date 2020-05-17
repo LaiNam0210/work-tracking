@@ -41,6 +41,19 @@ const reportReducer = createReducer(
     error
   })),
 
+  /* LOAD BY INDEX */
+  on(ReportActions.loadReportByIndex, (state, { index }) => ({
+    ...state
+  })),
+  on(ReportActions.loadReportByIndexSuccess, (state, { selectedId }) => ({
+    ...state,
+    selectedId: selectedId
+  })),
+  on(ReportActions.loadReportByIndexFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+
   /* ADD REPORT */
   on(ReportActions.addReport, (state, { newReport }) => ({ ...state })),
   on(ReportActions.addReportSuccess, (state, { addedReport }) =>

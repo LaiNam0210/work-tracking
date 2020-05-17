@@ -7,6 +7,7 @@ import * as ReportSelectors from './report.selectors';
 import {
   addReport,
   loadReport,
+  loadReportByIndex,
   deleteReport,
   updateReport
 } from './report.actions';
@@ -22,6 +23,10 @@ export class ReportFacade {
 
   loadReports() {
     this.dispatch(loadReport());
+  }
+
+  loadReportByIndex(index: number) {
+    this.dispatch(loadReportByIndex({ index }));
   }
 
   addReport(newReport: Report) {

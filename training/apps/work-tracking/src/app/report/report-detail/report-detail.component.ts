@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 import { Report } from '@training/report';
 import { ReportFacade } from '@training/store/report';
@@ -32,22 +31,14 @@ export class ReportDetailComponent implements OnInit {
     private http: HttpClient,
     private reportFacade: ReportFacade,
     private fb: FormBuilder
-  ) {}
+  ) {
+    this.route.params.subscribe(params =>
+      this.reportFacade.loadReportByIndex(+params['index'])
+    );
+  }
 
   ngOnInit(): void {
-    this.report$ = this.route.params.pipe(
-      switchMap(
-        (params: Params) =>
-          this.http.get(`api/report/${params['index']}`) as Observable<Report>
-      )
-    );
-
-    this.report$.subscribe(report => {
-      this.id = report.id;
-      this.jobYesterday = report.jobYesterday;
-      this.problems = report.problems;
-      this.jobToday = report.jobToday;
-    });
+    this.report$ = this.reportFacade.selectedReport$;
   }
 
   onDelete(): void {
@@ -58,6 +49,12 @@ export class ReportDetailComponent implements OnInit {
 
   onEdit(): void {
     this.editMode = true;
+    this.report$.subscribe(report => {
+      this.id = report.id;
+      this.jobYesterday = report.jobYesterday;
+      this.problems = report.problems;
+      this.jobToday = report.jobToday;
+    });
   }
 
   onReportSubmit(): void {
