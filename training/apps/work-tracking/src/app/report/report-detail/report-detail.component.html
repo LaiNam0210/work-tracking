@@ -56,11 +56,7 @@
           mat-raised-button
           color="primary"
           class="report-create-btn"
-          [disabled]="
-            reportForm.get('newJYesterday').invalid ||
-            reportForm.get('newProblems').invalid ||
-            reportForm.get('newJToday').invalid
-          "
+          [disabled]="reportForm.invalid"
         >
           Save changes
         </button>

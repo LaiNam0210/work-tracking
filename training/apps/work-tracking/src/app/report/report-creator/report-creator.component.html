@@ -30,11 +30,7 @@
       mat-raised-button
       color="primary"
       class="report-create-btn"
-      [disabled]="
-        reportForm.get('jobYesterday').invalid ||
-        reportForm.get('problems').invalid ||
-        reportForm.get('jobToday').invalid
-      "
+      [disabled]="reportForm.invalid"
     >
       New report
     </button>
