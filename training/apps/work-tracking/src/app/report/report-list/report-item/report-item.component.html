@@ -1,7 +1,9 @@
 <a [routerLink]="[index]" routerLinkActive="active-link">
   <mat-card>
     <mat-card-title>{{ report.timeCreated | date: 'short' }}</mat-card-title>
-    <mat-card-content>That day's job: {{ report.jobToday }}</mat-card-content>
+    <mat-card-content
+      >That day's job: {{ report.jobToday | slice: 0:50 }}</mat-card-content
+    >
     <mat-card-subtitle style="float:right"
       >ID: {{ report.id }}</mat-card-subtitle
     >
