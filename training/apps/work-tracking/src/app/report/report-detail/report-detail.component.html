@@ -11,9 +11,18 @@
       </button>
     </div>
     <hr />
-    <p>Job yesterday: {{ report.jobYesterday }}</p>
-    <p>Problems: {{ report.problems }}</p>
-    <p>Job today: {{ report.jobToday }}</p>
+    <span>
+      <p class="report-detail-label">Job yesterday:</p>
+      <p class="report-detail-content">{{ report.jobYesterday }}</p>
+    </span>
+    <span>
+      <p class="report-detail-label">Problems:</p>
+      <p class="report-detail-content">{{ report.problems }}</p>
+    </span>
+    <span>
+      <p class="report-detail-label">Job today:</p>
+      <p class="report-detail-content">{{ report.jobToday }}</p>
+    </span>
   </div>
   <ng-template #elseBlock>
     <h2>Editing report</h2>

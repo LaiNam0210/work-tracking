@@ -16,3 +16,16 @@
 h2 {
   color: $primary-color;
 }
+
+p {
+  white-space: pre-wrap;
+}
+
+.report-detail-label {
+  color: $primary-color;
+}
+
+.report-detail-content {
+  padding-left: 16px;
+  font-family: 'Kalam', cursive;
+}
