@@ -9,6 +9,8 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 export class ErrorPageComponent implements OnInit {
   errorMessage: string;
   back: string;
+  backMessage: string;
+  backRoute: string;
 
   constructor(private route: ActivatedRoute, private router: Router) {}
 
@@ -16,20 +18,23 @@ export class ErrorPageComponent implements OnInit {
     this.route.data.subscribe((data: Data) => {
       this.errorMessage = data['message'];
       this.back = data['back'];
+      switch (data['back']) {
+        case 'AUTH':
+          this.backMessage = 'Back to login page';
+          this.backRoute = '/auth';
+          break;
+        case 'REPORT':
+          this.backMessage = 'Back to report page';
+          this.backRoute = '/report';
+          break;
+        default:
+          this.backMessage = 'Back';
+          break;
+      }
     });
   }
 
   onBack() {
-    switch (this.back) {
-      case 'AUTH':
-        this.router.navigate(['/auth']);
-        break;
-      case 'REPORT':
-        this.router.navigate(['/report']);
-        break;
-      default:
-        this.router.navigate(['/report']);
-        break;
-    }
+    this.router.navigate([this.backRoute]);
   }
 }
