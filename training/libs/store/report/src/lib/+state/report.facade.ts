@@ -9,7 +9,8 @@ import {
   loadReport,
   loadReportByIndex,
   deleteReport,
-  updateReport
+  updateReport,
+  login
 } from './report.actions';
 import { Report } from '@training/report';
 
@@ -44,6 +45,10 @@ export class ReportFacade {
     newJToday: string
   ) {
     this.dispatch(updateReport({ id, newJYesterday, newProblems, newJToday }));
+  }
+
+  login(username: string, password: string) {
+    this.dispatch(login({ username, password }));
   }
 
   dispatch(action: Action) {

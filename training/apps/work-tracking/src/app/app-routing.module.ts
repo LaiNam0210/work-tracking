@@ -4,6 +4,7 @@ import { ReportDetailComponent } from './report/report-detail/report-detail.comp
 import { ReportComponent } from './report/report.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ReportStartComponent } from './report/report-start/report-start.component';
+import { AuthPageComponent } from './auth-page/auth-page.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/report', pathMatch: 'full' },
@@ -14,6 +15,10 @@ const appRoutes: Routes = [
       { path: '', component: ReportStartComponent },
       { path: ':index', component: ReportDetailComponent }
     ]
+  },
+  {
+    path: 'auth-page',
+    component: AuthPageComponent
   },
   {
     path: 'not-found',

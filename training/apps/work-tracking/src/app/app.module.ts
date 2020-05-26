@@ -26,6 +26,7 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthPageComponent } from './auth-page/auth-page.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ReportDetailComponent,
     ReportCreatorComponent,
     ErrorPageComponent,
-    ReportStartComponent
+    ReportStartComponent,
+    AuthPageComponent
   ],
   imports: [
     BrowserModule,

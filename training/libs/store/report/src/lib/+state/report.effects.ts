@@ -146,6 +146,39 @@ export class ReportEffects {
     )
   );
 
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReportActions.login),
+      fetch({
+        run: action => {
+          return this.http
+            .post<{ accessToken: string; expirationDate: number }>(
+              '/api/auth/login',
+              { username: action.username, password: action.password }
+            )
+            .pipe(
+              map(res => {
+                localStorage.setItem('accessToken', res.accessToken);
+                localStorage.setItem(
+                  'expirationDate',
+                  res.expirationDate.toString()
+                );
+                return ReportActions.loginSuccess({
+                  accessToken: res.accessToken,
+                  expirationDate: res.expirationDate
+                });
+              })
+            );
+        },
+
+        onError: (action, error) => {
+          console.error('Error', error);
+          return ReportActions.loginFailure({ error });
+        }
+      })
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private http: HttpClient,

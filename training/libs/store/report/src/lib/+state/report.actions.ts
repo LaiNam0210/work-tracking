@@ -85,3 +85,18 @@ export const updateReportFailure = createAction(
   '[Report] Update Report Failure',
   props<{ error: any }>()
 );
+
+export const login = createAction(
+  '[Auth] Login',
+  props<{ username: string; password: string }>()
+);
+
+export const loginSuccess = createAction(
+  '[Auth] Login Success',
+  props<{ accessToken: string; expirationDate: number }>()
+);
+
+export const loginFailure = createAction(
+  '[Auth] Login Failure',
+  props<{ error: any }>()
+);
