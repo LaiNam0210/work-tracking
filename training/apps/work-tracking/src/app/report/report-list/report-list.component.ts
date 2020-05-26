@@ -10,7 +10,7 @@ import { ReportEntity, ReportFacade } from '@training/store/report';
 export class ReportListComponent implements OnInit {
   reports$: Observable<ReportEntity[]>;
   noReportCreated = false;
-  errorMessage = '';
+  error$ = this.reportFacade.error$;
 
   constructor(public reportFacade: ReportFacade) {
     this.reportFacade.loadReports();

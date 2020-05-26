@@ -19,6 +19,7 @@ export class ReportFacade {
   loaded$ = this.store.pipe(select(ReportSelectors.getReportLoaded));
   allReport$ = this.store.pipe(select(ReportSelectors.getAllReport));
   selectedReport$ = this.store.pipe(select(ReportSelectors.getSelected));
+  error$ = this.store.pipe(select(ReportSelectors.getReportError));
 
   constructor(private store: Store<fromReport.ReportPartialState>) {}
 
