@@ -27,6 +27,7 @@ import { StoreModule } from '@ngrx/store';
 import { environment } from '../environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthPageComponent } from './auth-page/auth-page.component';
+import { HeaderComponent } from '@training/header';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AuthPageComponent } from './auth-page/auth-page.component';
     ReportCreatorComponent,
     ErrorPageComponent,
     ReportStartComponent,
-    AuthPageComponent
+    AuthPageComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

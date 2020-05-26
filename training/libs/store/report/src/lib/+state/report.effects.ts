@@ -196,6 +196,26 @@ export class ReportEffects {
     )
   );
 
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ReportActions.logout),
+      fetch({
+        run: action => {
+          //FIXME: Maybe user can modify the field's name, so remove localStorage data like this does not really the best way to logout?
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('expirationDate');
+          this.router.navigate(['/auth']);
+        },
+
+        onError: (action, error) => {
+          console.error('Error', error);
+          alert(`Username or password is incorrect!`);
+          return ReportActions.logoutFailure({ error });
+        }
+      })
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private http: HttpClient,

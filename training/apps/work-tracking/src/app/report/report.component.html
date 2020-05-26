@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div
   class="container fluid"
   [ngClass.xs]="{ fluid: false }"
@@ -15,7 +16,7 @@
   </div>
 
   <div fxLayout="column" fxFlex="50%" fxLayoutGap="18px">
-    <div fxFlex style="overflow: auto">
+    <div fxFlex [ngClass.xs]="{ 'overflow-div': false }" class="overflow-div">
       <router-outlet></router-outlet>
     </div>
     <div fxFlex>

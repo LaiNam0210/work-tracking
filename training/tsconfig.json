@@ -17,7 +17,9 @@
     "baseUrl": ".",
     "paths": {
       "@training/report": ["libs/report/src/index.ts"],
-      "@training/store/report": ["libs/store/report/src/index.ts"]
+      "@training/store/report": ["libs/store/report/src/index.ts"],
+      "@training/header": ["libs/header/src/index.ts"],
+      "@training/styles": ["libs/styles/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

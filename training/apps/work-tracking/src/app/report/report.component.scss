@@ -1,4 +1,4 @@
-@import 'apps/work-tracking/src/app/app.component.scss';
+@import '../../../../../libs/styles/src/core.scss';
 
 $header-padding: 16px;
 $header-height: 40px;
@@ -8,7 +8,11 @@ $header-height: 40px;
 }
 
 .fluid {
-  height: 100vh;
+  height: calc(100vh - #{$page-header-height});
+}
+
+.overflow-div {
+  overflow: auto;
 }
 
 .container-fluid {
@@ -29,7 +33,7 @@ $header-height: 40px;
 
 .list-container {
   height: calc(
-    100vh - #{$header-padding} - #{$header-height} - #{2 * $app-margin}
+    100vh - #{$header-padding} - #{$header-height} - #{2 * $app-margin} - #{$page-header-height}
   );
   overflow: auto;
 }

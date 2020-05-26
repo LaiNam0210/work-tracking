@@ -97,6 +97,13 @@ const reportReducer = createReducer(
   on(ReportActions.loginFailure, (state, { error }) => ({
     ...state,
     error
+  })),
+
+  /* LOGOUT */
+  on(ReportActions.logout, state => ({ ...state })),
+  on(ReportActions.logoutFailure, (state, { error }) => ({
+    ...state,
+    error
   }))
 );
 

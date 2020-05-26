@@ -1,0 +1,23 @@
+@import '../../../styles/src/core.scss';
+
+.header-container {
+  background-color: $primary-color;
+  height: $page-header-height;
+  box-shadow: 0 10px 10px -10px #555;
+  .btn-logout {
+    margin: 12px;
+  }
+  .heading {
+    margin: 32px;
+    color: white;
+  }
+}
+
+header-container-1 {
+  background-color: red !important;
+  height: $page-header-height;
+  box-shadow: 0 10px 10px -10px #555;
+  .btn-logout {
+    margin: 12px;
+  }
+}

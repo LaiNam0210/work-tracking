@@ -34,6 +34,12 @@
     },
     "store-report": {
       "tags": []
+    },
+    "header": {
+      "tags": []
+    },
+    "styles": {
+      "tags": []
     }
   }
 }

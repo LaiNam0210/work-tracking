@@ -100,3 +100,10 @@ export const loginFailure = createAction(
   '[Auth] Login Failure',
   props<{ error: any }>()
 );
+
+export const logout = createAction('[Auth] Logout');
+
+export const logoutFailure = createAction(
+  '[Auth] Logout Failure',
+  props<{ error: any }>()
+);

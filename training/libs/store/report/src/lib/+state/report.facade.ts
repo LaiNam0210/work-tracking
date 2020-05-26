@@ -10,7 +10,8 @@ import {
   loadReportByIndex,
   deleteReport,
   updateReport,
-  login
+  login,
+  logout
 } from './report.actions';
 import { Report } from '@training/report';
 
@@ -50,6 +51,10 @@ export class ReportFacade {
 
   login(username: string, password: string) {
     this.dispatch(login({ username, password }));
+  }
+
+  logout() {
+    this.dispatch(logout());
   }
 
   dispatch(action: Action) {
