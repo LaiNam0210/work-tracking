@@ -24,6 +24,7 @@ export class ReportDetailComponent implements OnInit {
   jobYesterday: string;
   problems: string;
   jobToday: string;
+  error$ = this.reportFacade.error$;
 
   constructor(
     private route: ActivatedRoute,

@@ -1,4 +1,7 @@
-<div class="report-detail-container" *ngIf="report$ | async as report">
+<div
+  class="report-detail-container"
+  *ngIf="report$ | async as report; else errorBlock"
+>
   <h1>ID: {{ report.id }}</h1>
   <p>Time created: {{ report.timeCreated | date: 'short' }}</p>
   <div *ngIf="!editMode; else elseBlock">
@@ -86,3 +89,9 @@
     </form>
   </ng-template>
 </div>
+
+<ng-template #errorBlock>
+  <div *ngIf="error$ | async as error">
+    <h1>{{ error }}</h1>
+  </div>
+</ng-template>

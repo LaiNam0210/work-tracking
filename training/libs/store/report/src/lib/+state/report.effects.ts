@@ -50,6 +50,11 @@ export class ReportEffects {
         run: action => {
           return this.http.get<Report>(`/api/report/${action.index}`).pipe(
             map((report: Report) => {
+              if (!report) {
+                return ReportActions.loadReportByIndexFailure({
+                  error: 'Cant find chosen report!'
+                });
+              }
               return ReportActions.loadReportByIndexSuccess({
                 selectedId: report.id
               });
