@@ -17,13 +17,18 @@ const appRoutes: Routes = [
     ]
   },
   {
-    path: 'auth-page',
+    path: 'auth',
     component: AuthPageComponent
+  },
+  {
+    path: 'unauthorized',
+    component: ErrorPageComponent,
+    data: { message: 'You are not logged in!', back: 'AUTH' }
   },
   {
     path: 'not-found',
     component: ErrorPageComponent,
-    data: { message: 'Page not found!' }
+    data: { message: 'Page not found!', back: 'REPORT' }
   },
   { path: '**', redirectTo: '/not-found' }
 ];

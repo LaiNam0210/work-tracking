@@ -3,13 +3,14 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 import * as ReportActions from './report.actions';
 import { ReportEntity } from './report.models';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const REPORT_FEATURE_KEY = 'report';
 
 export interface State extends EntityState<ReportEntity> {
   selectedId?: string; // which Report record has been selected
   loaded: boolean; // has the Report list been loaded
-  error?: string | null; // last none error (if any)
+  error?: string | null | HttpErrorResponse; // last none error (if any)
 }
 
 export interface ReportPartialState {

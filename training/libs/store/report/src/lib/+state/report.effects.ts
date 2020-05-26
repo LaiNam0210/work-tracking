@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 
@@ -17,16 +17,26 @@ export class ReportEffects {
       ofType(ReportActions.loadReport),
       fetch({
         run: action => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return this.http.get<Report[]>('/api/report').pipe(
-            map((reports: Report[]) => {
-              return ReportActions.loadReportSuccess({ report: reports });
+          const accessToken = localStorage.getItem('accessToken');
+          return this.http
+            .get<Report[]>('/api/report', {
+              headers: { Authorization: `Bearer ${accessToken}` }
             })
-          );
+            .pipe(
+              map((reports: Report[]) => {
+                return ReportActions.loadReportSuccess({ report: reports });
+              })
+            );
         },
 
         onError: (action, error) => {
           console.error('Error', error);
+          if (
+            error instanceof HttpErrorResponse &&
+            error.error.statusCode === 401
+          ) {
+            this.router.navigate(['/unauthorized']);
+          }
           return ReportActions.loadReportFailure({ error });
         }
       })
@@ -163,6 +173,7 @@ export class ReportEffects {
                   'expirationDate',
                   res.expirationDate.toString()
                 );
+                this.router.navigate(['/report']);
                 return ReportActions.loginSuccess({
                   accessToken: res.accessToken,
                   expirationDate: res.expirationDate

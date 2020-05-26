@@ -30,11 +30,6 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
-
   @Get('report')
   getReports(): Report[] {
     return this.appService.getReports();
