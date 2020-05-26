@@ -173,6 +173,7 @@ export class ReportEffects {
 
         onError: (action, error) => {
           console.error('Error', error);
+          alert(`Username or password is incorrect!`);
           return ReportActions.loginFailure({ error });
         }
       })
