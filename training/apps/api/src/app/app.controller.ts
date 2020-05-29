@@ -35,6 +35,7 @@ export class AppController {
     return this.appService.getReports();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get('report/:index')
   getReportById(@Param() params): Report {
     return this.appService.getReportByIndex(+params.index);

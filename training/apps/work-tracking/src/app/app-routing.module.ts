@@ -23,7 +23,10 @@ const appRoutes: Routes = [
   {
     path: 'unauthorized',
     component: ErrorPageComponent,
-    data: { message: 'You are not logged in!', back: 'AUTH' }
+    data: {
+      message: 'You are not logged in or your session is expired!',
+      back: 'AUTH'
+    }
   },
   {
     path: 'not-found',

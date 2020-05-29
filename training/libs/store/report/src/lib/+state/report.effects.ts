@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 
@@ -17,26 +17,15 @@ export class ReportEffects {
       ofType(ReportActions.loadReport),
       fetch({
         run: action => {
-          const accessToken = localStorage.getItem('accessToken');
-          return this.http
-            .get<Report[]>('/api/report', {
-              headers: { Authorization: `Bearer ${accessToken}` }
+          return this.http.get<Report[]>('/api/report').pipe(
+            map((reports: Report[]) => {
+              return ReportActions.loadReportSuccess({ report: reports });
             })
-            .pipe(
-              map((reports: Report[]) => {
-                return ReportActions.loadReportSuccess({ report: reports });
-              })
-            );
+          );
         },
 
         onError: (action, error) => {
           console.error('Error', error);
-          if (
-            error instanceof HttpErrorResponse &&
-            error.error.statusCode === 401
-          ) {
-            this.router.navigate(['/unauthorized']);
-          }
           return ReportActions.loadReportFailure({ error });
         }
       })
