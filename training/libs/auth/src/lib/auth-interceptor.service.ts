@@ -5,12 +5,15 @@ import {
   HttpInterceptor,
   HttpRequest
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
+  errorHandler = { 401: () => this.router.navigate(['/unauthorized']) };
+
   constructor(private router: Router) {}
 
   intercept(
@@ -18,7 +21,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('accessToken');
-    if (token) {
+    if (!!token) {
       req = req.clone({
         setHeaders: {
           authorization: `Bearer ${token}`
@@ -26,20 +29,17 @@ export class AuthInterceptorService implements HttpInterceptor {
       });
     }
 
-    console.log(req);
-    const tmp = next.handle(req);
-    tmp.subscribe(
-      res => {},
-      err => {
+    return next.handle(req).pipe(
+      catchError(err => {
         if (err instanceof HttpErrorResponse) {
-          console.log(err.status);
-          console.log(err.statusText);
-          if (err.status === 401) {
-            this.router.navigate(['unauthorized']);
+          switch (err.status) {
+            case 401:
+              this.errorHandler[err.status]();
+              break;
           }
+          return throwError(err);
         }
-      }
+      })
     );
-    return tmp;
   }
 }
