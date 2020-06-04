@@ -20,7 +20,8 @@
       "@training/store/report": ["libs/store/report/src/index.ts"],
       "@training/header": ["libs/header/src/index.ts"],
       "@training/styles": ["libs/styles/src/index.ts"],
-      "@training/auth": ["libs/auth/src/index.ts"]
+      "@training/auth": ["libs/auth/src/index.ts"],
+      "@training/backend": ["libs/backend/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

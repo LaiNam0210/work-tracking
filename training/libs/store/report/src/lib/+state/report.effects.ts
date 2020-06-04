@@ -4,11 +4,11 @@ import { fetch } from '@nrwl/angular';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
+import { Router } from '@angular/router';
 
-import * as fromReport from './report.reducer';
 import * as ReportActions from './report.actions';
 import { Report } from '@training/report';
-import { Router } from '@angular/router';
+import { BackendService } from '@training/backend';
 
 @Injectable()
 export class ReportEffects {
@@ -17,7 +17,7 @@ export class ReportEffects {
       ofType(ReportActions.loadReport),
       fetch({
         run: action => {
-          return this.http.get<Report[]>('/api/report').pipe(
+          return this.backendService.loadReports().pipe(
             map((reports: Report[]) => {
               return ReportActions.loadReportSuccess({ report: reports });
             })
@@ -37,8 +37,9 @@ export class ReportEffects {
       ofType(ReportActions.loadReportByIndex),
       fetch({
         run: action => {
-          return this.http.get<Report>(`/api/report/${action.index}`).pipe(
+          return this.backendService.loadReportByIndex(action.index).pipe(
             map((report: Report) => {
+              //FIXME: Is this good to handle error when user enter large index?
               if (!report) {
                 return ReportActions.loadReportByIndexFailure({
                   error: 'Cant find chosen report!'
@@ -64,18 +65,15 @@ export class ReportEffects {
       ofType(ReportActions.addReport),
       fetch({
         run: action => {
-          // Your custom service 'load' logic goes here. For now just return a success action...
-          return this.http
-            .post<Report>('/api/add_report', action.newReport)
-            .pipe(
-              map((addedReport: Report) => {
-                alert(`Added report with id ${addedReport.id}`);
-                this.router.navigate(['/report']);
-                return ReportActions.addReportSuccess({
-                  addedReport: addedReport
-                });
-              })
-            );
+          return this.backendService.addReport(action.newReport).pipe(
+            map((addedReport: Report) => {
+              alert(`Added report with id ${addedReport.id}`);
+              this.router.navigate(['/report']);
+              return ReportActions.addReportSuccess({
+                addedReport: addedReport
+              });
+            })
+          );
         },
 
         onError: (action, error) => {
@@ -91,8 +89,7 @@ export class ReportEffects {
       ofType(ReportActions.deleteReport),
       fetch({
         run: action => {
-          const url = `/api/delete_report/${action.index}`;
-          return this.http.delete<{ deletedId: string }>(url).pipe(
+          return this.backendService.deleteReport(action.index).pipe(
             map((obj: { deletedId: string }) => {
               alert(`Deleted report with id ${obj.deletedId}`);
               this.router.navigate(['/report']);
@@ -116,30 +113,30 @@ export class ReportEffects {
       ofType(ReportActions.updateReport),
       fetch({
         run: action => {
-          const url = `/api/update_report/`;
-          const body = {
-            id: action.id,
-            newJYesterday: action.newJYesterday,
-            newProblems: action.newProblems,
-            newJToday: action.newJToday
-          };
-          return this.http.put<Report>(url, body).pipe(
-            map(updatedReport => {
-              const update: Update<Report> = {
-                id: action.id,
-                changes: {
-                  jobYesterday: action.newJYesterday,
-                  problems: action.newProblems,
-                  jobToday: action.newJToday
-                }
-              };
-              alert(`Updated report with id ${updatedReport.id}`);
-              this.router.navigate(['/report']);
-              return ReportActions.updateReportSuccess({
-                updatedReport: update
-              });
-            })
-          );
+          return this.backendService
+            .updateReport(
+              action.id,
+              action.newJYesterday,
+              action.newProblems,
+              action.newJToday
+            )
+            .pipe(
+              map(updatedReport => {
+                const update: Update<Report> = {
+                  id: action.id,
+                  changes: {
+                    jobYesterday: action.newJYesterday,
+                    problems: action.newProblems,
+                    jobToday: action.newJToday
+                  }
+                };
+                alert(`Updated report with id ${updatedReport.id}`);
+                this.router.navigate(['/report']);
+                return ReportActions.updateReportSuccess({
+                  updatedReport: update
+                });
+              })
+            );
         },
 
         onError: (action, error) => {
@@ -208,6 +205,7 @@ export class ReportEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private backendService: BackendService
   ) {}
 }
