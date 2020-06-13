@@ -114,12 +114,12 @@ export class ReportEffects {
       fetch({
         run: action => {
           return this.backendService
-            .updateReport(
-              action.id,
-              action.newJYesterday,
-              action.newProblems,
-              action.newJToday
-            )
+            .updateReport({
+              id: action.id,
+              newJYesterday: action.newJYesterday,
+              newProblems: action.newProblems,
+              newJToday: action.newJToday
+            })
             .pipe(
               map(updatedReport => {
                 const update: Update<Report> = {

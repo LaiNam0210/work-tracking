@@ -40,13 +40,13 @@ export class ReportFacade {
     this.dispatch(deleteReport({ index }));
   }
 
-  updateReport(
-    id: string,
-    newJYesterday: string,
-    newProblems: string,
-    newJToday: string
-  ) {
-    this.dispatch(updateReport({ id, newJYesterday, newProblems, newJToday }));
+  updateReport(updatedReport: {
+    id: string;
+    newJYesterday: string;
+    newProblems: string;
+    newJToday: string;
+  }) {
+    this.dispatch(updateReport(updatedReport));
   }
 
   login(username: string, password: string) {

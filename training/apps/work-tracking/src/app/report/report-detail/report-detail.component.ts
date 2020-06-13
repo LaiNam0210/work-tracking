@@ -60,11 +60,11 @@ export class ReportDetailComponent implements OnInit {
 
   onReportSubmit(): void {
     this.editMode = false;
-    this.reportFacade.updateReport(
-      this.id,
-      this.jobYesterday,
-      this.problems,
-      this.jobToday
-    );
+    this.reportFacade.updateReport({
+      id: this.id,
+      newJYesterday: this.jobYesterday,
+      newProblems: this.problems,
+      newJToday: this.jobToday
+    });
   }
 }

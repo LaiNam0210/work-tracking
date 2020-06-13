@@ -27,20 +27,14 @@ export class BackendService {
     return this.http.delete<{ deletedId: string }>(url);
   }
 
-  updateReport(
-    id: string,
-    newJYesterday: string,
-    newProblems: string,
-    newJToday: string
-  ) {
+  updateReport(updatedReport: {
+    id: string;
+    newJYesterday: string;
+    newProblems: string;
+    newJToday: string;
+  }) {
     const url = `/api/update_report/`;
-    const body = {
-      id,
-      newJYesterday,
-      newProblems,
-      newJToday
-    };
-    return this.http.put<Report>(url, body);
+    return this.http.put<Report>(url, updatedReport);
   }
 
   constructor(private http: HttpClient) {}

@@ -67,11 +67,11 @@ export class AppController {
     @Body('newProblems') newProblems: string,
     @Body('newJToday') newJToday: string
   ): Report {
-    return this.appService.updateReport(
+    return this.appService.updateReport({
       id,
       newJYesterday,
       newProblems,
       newJToday
-    );
+    });
   }
 }

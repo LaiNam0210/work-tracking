@@ -38,20 +38,20 @@ export class AppService {
     return { deletedId: deletedId };
   }
 
-  updateReport(
-    id: string,
-    newJYesterday: string,
-    newProblems: string,
-    newJToday: string
-  ): Report {
-    for (let i = 0; i < this.reports.length; i++) {
-      const report = this.reports[i];
-      if (report.id === id) {
-        report.jobYesterday = newJYesterday;
-        report.problems = newProblems;
-        report.jobToday = newJToday;
-        return report;
-      }
+  updateReport(updatedReport: {
+    id: string;
+    newJYesterday: string;
+    newProblems: string;
+    newJToday: string;
+  }): Report {
+    const selectedReport = this.reports.find(
+      report => report.id === updatedReport.id
+    );
+    if (!!selectedReport) {
+      selectedReport.jobYesterday = updatedReport.newJYesterday;
+      selectedReport.problems = updatedReport.newProblems;
+      selectedReport.jobToday = updatedReport.newJToday;
+      return selectedReport;
     }
   }
 }
