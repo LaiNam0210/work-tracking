@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReportDetailComponent } from './report/report-detail/report-detail.component';
 import { ReportComponent } from './report/report.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
 import { ReportStartComponent } from './report/report-start/report-start.component';
 import { AuthPageComponent } from './auth-page/auth-page.component';
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/report', pathMatch: 'full' },
@@ -22,16 +23,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'unauthorized',
-    component: ErrorPageComponent,
-    data: {
-      message: 'You are not logged in or your session is expired!',
-      back: 'AUTH'
-    }
+    component: UnauthorizedPageComponent
   },
   {
     path: 'not-found',
-    component: ErrorPageComponent,
-    data: { message: 'Page not found!', back: 'REPORT' }
+    component: NotFoundPageComponent
   },
   { path: '**', redirectTo: '/not-found' }
 ];

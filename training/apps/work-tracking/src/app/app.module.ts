@@ -17,7 +17,6 @@ import { ReportListComponent } from './report/report-list/report-list.component'
 import { ReportItemComponent } from './report/report-list/report-item/report-item.component';
 import { ReportDetailComponent } from './report/report-detail/report-detail.component';
 import { ReportCreatorComponent } from './report/report-creator/report-creator.component';
-import { ErrorPageComponent } from './error-page/error-page.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReportStartComponent } from './report/report-start/report-start.component';
 import { NxModule } from '@nrwl/angular';
@@ -29,6 +28,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AuthPageComponent } from './auth-page/auth-page.component';
 import { HeaderComponent } from '@training/header';
 import { AuthInterceptorService } from '@training/auth';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +39,11 @@ import { AuthInterceptorService } from '@training/auth';
     ReportItemComponent,
     ReportDetailComponent,
     ReportCreatorComponent,
-    ErrorPageComponent,
     ReportStartComponent,
     AuthPageComponent,
-    HeaderComponent
+    HeaderComponent,
+    NotFoundPageComponent,
+    UnauthorizedPageComponent
   ],
   imports: [
     BrowserModule,
