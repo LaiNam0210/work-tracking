@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 
 import * as ReportActions from './report.actions';
 import { Report } from '@training/report';
-import { BackendService } from '@training/backend';
+import { ReportService } from '@training/backend';
 
 @Injectable()
 export class ReportEffects {
@@ -17,7 +17,7 @@ export class ReportEffects {
       ofType(ReportActions.loadReport),
       fetch({
         run: action => {
-          return this.backendService.loadReports().pipe(
+          return this.reportService.loadReports().pipe(
             map((reports: Report[]) => {
               return ReportActions.loadReportSuccess({ report: reports });
             })
@@ -37,7 +37,7 @@ export class ReportEffects {
       ofType(ReportActions.loadReportByIndex),
       fetch({
         run: action => {
-          return this.backendService.loadReportByIndex(action.index).pipe(
+          return this.reportService.loadReportByIndex(action.index).pipe(
             map((report: Report) => {
               //FIXME: Is this good to handle error when user enter large index?
               if (!report) {
@@ -65,7 +65,7 @@ export class ReportEffects {
       ofType(ReportActions.addReport),
       fetch({
         run: action => {
-          return this.backendService.addReport(action.newReport).pipe(
+          return this.reportService.addReport(action.newReport).pipe(
             map((addedReport: Report) => {
               alert(`Added report with id ${addedReport.id}`);
               this.router.navigate(['/report']);
@@ -89,7 +89,7 @@ export class ReportEffects {
       ofType(ReportActions.deleteReport),
       fetch({
         run: action => {
-          return this.backendService.deleteReport(action.index).pipe(
+          return this.reportService.deleteReport(action.index).pipe(
             map((obj: { deletedId: string }) => {
               alert(`Deleted report with id ${obj.deletedId}`);
               this.router.navigate(['/report']);
@@ -113,7 +113,7 @@ export class ReportEffects {
       ofType(ReportActions.updateReport),
       fetch({
         run: action => {
-          return this.backendService
+          return this.reportService
             .updateReport({
               id: action.id,
               newJYesterday: action.newJYesterday,
@@ -206,6 +206,6 @@ export class ReportEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    private backendService: BackendService
+    private reportService: ReportService
   ) {}
 }

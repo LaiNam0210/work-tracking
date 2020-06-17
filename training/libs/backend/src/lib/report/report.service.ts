@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class BackendService {
+export class ReportService {
   loadReports(): Observable<Report[]> {
     const url = `/api/report`;
     return this.http.get<Report[]>(url);
