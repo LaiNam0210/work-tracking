@@ -27,14 +27,9 @@ export class ReportService {
     return this.http.delete<{ deletedId: string }>(url);
   }
 
-  updateReport(updatedReport: {
-    id: string;
-    newJYesterday: string;
-    newProblems: string;
-    newJToday: string;
-  }) {
+  updateReport(updatedReport: Report) {
     const url = `/api/update_report/`;
-    return this.http.put<Report>(url, updatedReport);
+    return this.http.put<Report>(url, { updatedReport });
   }
 
   constructor(private http: HttpClient) {}

@@ -113,30 +113,23 @@ export class ReportEffects {
       ofType(ReportActions.updateReport),
       fetch({
         run: action => {
-          return this.reportService
-            .updateReport({
-              id: action.id,
-              newJYesterday: action.newJYesterday,
-              newProblems: action.newProblems,
-              newJToday: action.newJToday
+          return this.reportService.updateReport(action.updatedReport).pipe(
+            map(updatedReport => {
+              const update: Update<Report> = {
+                id: action.updatedReport.id,
+                changes: {
+                  jobYesterday: action.updatedReport.jobYesterday,
+                  problems: action.updatedReport.problems,
+                  jobToday: action.updatedReport.jobToday
+                }
+              };
+              alert(`Updated report with id ${updatedReport.id}`);
+              this.router.navigate(['/report']);
+              return ReportActions.updateReportSuccess({
+                updatedReport: update
+              });
             })
-            .pipe(
-              map(updatedReport => {
-                const update: Update<Report> = {
-                  id: action.id,
-                  changes: {
-                    jobYesterday: action.newJYesterday,
-                    problems: action.newProblems,
-                    jobToday: action.newJToday
-                  }
-                };
-                alert(`Updated report with id ${updatedReport.id}`);
-                this.router.navigate(['/report']);
-                return ReportActions.updateReportSuccess({
-                  updatedReport: update
-                });
-              })
-            );
+          );
         },
 
         onError: (action, error) => {

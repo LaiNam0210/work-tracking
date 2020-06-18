@@ -61,17 +61,7 @@ export class AppController {
   }
 
   @Put('update_report/')
-  updateReport(
-    @Body('id') id: string,
-    @Body('newJYesterday') newJYesterday: string,
-    @Body('newProblems') newProblems: string,
-    @Body('newJToday') newJToday: string
-  ): Report {
-    return this.appService.updateReport({
-      id,
-      newJYesterday,
-      newProblems,
-      newJToday
-    });
+  updateReport(@Body('updatedReport') updatedReport: Report): Report {
+    return this.appService.updateReport(updatedReport);
   }
 }

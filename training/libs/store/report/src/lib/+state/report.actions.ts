@@ -68,12 +68,7 @@ export const deleteReportFailure = createAction(
 
 export const updateReport = createAction(
   '[Report] Update report',
-  props<{
-    id: string;
-    newJYesterday: string;
-    newProblems: string;
-    newJToday: string;
-  }>()
+  props<{ updatedReport: Report }>()
 );
 
 export const updateReportSuccess = createAction(

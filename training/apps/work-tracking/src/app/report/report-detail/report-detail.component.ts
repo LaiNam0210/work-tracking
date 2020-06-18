@@ -51,7 +51,6 @@ export class ReportDetailComponent implements OnInit {
   onEdit(): void {
     this.editMode = true;
     this.report$.subscribe(report => {
-      this.id = report.id;
       this.jobYesterday = report.jobYesterday;
       this.problems = report.problems;
       this.jobToday = report.jobToday;
@@ -60,11 +59,13 @@ export class ReportDetailComponent implements OnInit {
 
   onReportSubmit(): void {
     this.editMode = false;
-    this.reportFacade.updateReport({
-      id: this.id,
-      newJYesterday: this.jobYesterday,
-      newProblems: this.problems,
-      newJToday: this.jobToday
+    const subs = this.report$.subscribe((report: Report) => {
+      const updatedReport = { ...report };
+      updatedReport.jobYesterday = this.jobYesterday;
+      updatedReport.problems = this.problems;
+      updatedReport.jobToday = this.jobToday;
+      this.reportFacade.updateReport(updatedReport);
     });
+    subs.unsubscribe();
   }
 }

@@ -38,19 +38,14 @@ export class AppService {
     return { deletedId: deletedId };
   }
 
-  updateReport(updatedReport: {
-    id: string;
-    newJYesterday: string;
-    newProblems: string;
-    newJToday: string;
-  }): Report {
+  updateReport(updatedReport: Report): Report {
     const selectedReport = this.reports.find(
       report => report.id === updatedReport.id
     );
     if (!!selectedReport) {
-      selectedReport.jobYesterday = updatedReport.newJYesterday;
-      selectedReport.problems = updatedReport.newProblems;
-      selectedReport.jobToday = updatedReport.newJToday;
+      selectedReport.jobYesterday = updatedReport.jobYesterday;
+      selectedReport.problems = updatedReport.problems;
+      selectedReport.jobToday = updatedReport.jobToday;
       return selectedReport;
     }
   }

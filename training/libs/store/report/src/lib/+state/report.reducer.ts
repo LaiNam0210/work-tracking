@@ -76,13 +76,10 @@ const reportReducer = createReducer(
   })),
 
   /* UPDATE REPORT */
-  on(
-    ReportActions.updateReport,
-    (state, { id, newJYesterday, newProblems, newJToday }) => ({
-      ...state,
-      selectedId: id
-    })
-  ),
+  on(ReportActions.updateReport, (state, { updatedReport }) => ({
+    ...state,
+    selectedId: updatedReport.id
+  })),
   on(ReportActions.updateReportSuccess, (state, { updatedReport }) =>
     reportAdapter.updateOne(updatedReport, { ...state })
   ),
