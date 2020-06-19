@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ReportFacade } from '@training/store/report';
-import { Observable } from 'rxjs';
 import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
+import { AuthFacade } from '@training/store/auth';
 
 @Component({
   selector: 'training-auth-page',
@@ -15,18 +14,17 @@ export class AuthPageComponent implements OnInit {
     password: [null, Validators.required]
   });
   @ViewChild(FormGroupDirective) loginNgForm;
-  authResult$: Observable<{ accessToken: string }>;
 
   constructor(
     private httpClient: HttpClient,
-    private reportFacade: ReportFacade,
+    private authFacade: AuthFacade,
     private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {}
 
   login() {
-    this.reportFacade.login(
+    this.authFacade.login(
       this.loginForm.value.username,
       this.loginForm.value.password
     );

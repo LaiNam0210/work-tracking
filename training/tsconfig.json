@@ -21,7 +21,8 @@
       "@training/header": ["libs/header/src/index.ts"],
       "@training/styles": ["libs/styles/src/index.ts"],
       "@training/auth": ["libs/auth/src/index.ts"],
-      "@training/backend": ["libs/backend/src/index.ts"]
+      "@training/backend": ["libs/backend/src/index.ts"],
+      "@training/store/auth": ["libs/store/auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

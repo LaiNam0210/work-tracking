@@ -344,6 +344,38 @@
           }
         }
       }
+    },
+    "store-auth": {
+      "projectType": "library",
+      "root": "libs/store/auth",
+      "sourceRoot": "libs/store/auth/src",
+      "prefix": "training",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/store/auth/tsconfig.lib.json",
+              "libs/store/auth/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/store/auth/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/store/auth/jest.config.js",
+            "tsConfig": "libs/store/auth/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/store/auth/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {

@@ -29,6 +29,7 @@ import { HeaderComponent } from '@training/header';
 import { AuthInterceptorService } from '@training/auth';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
+import { StoreAuthModule } from '@training/store/auth';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page
     MatInputModule,
     MatIconModule,
     StoreReportModule,
+    StoreAuthModule,
     NxModule.forRoot(),
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot(),

@@ -9,9 +9,7 @@ import {
   loadReport,
   loadReportByIndex,
   deleteReport,
-  updateReport,
-  login,
-  logout
+  updateReport
 } from './report.actions';
 import { Report } from '@training/report';
 
@@ -42,14 +40,6 @@ export class ReportFacade {
 
   updateReport(updatedReport: Report) {
     this.dispatch(updateReport({ updatedReport }));
-  }
-
-  login(username: string, password: string) {
-    this.dispatch(login({ username, password }));
-  }
-
-  logout() {
-    this.dispatch(logout());
   }
 
   dispatch(action: Action) {

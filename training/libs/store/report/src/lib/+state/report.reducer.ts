@@ -86,21 +86,6 @@ const reportReducer = createReducer(
   on(ReportActions.deleteReportFailure, (state, { error }) => ({
     ...state,
     error
-  })),
-
-  /* LOGIN */
-  on(ReportActions.login, (state, { username, password }) => ({ ...state })),
-  on(ReportActions.loginSuccess, (state, { accessToken }) => ({ ...state })),
-  on(ReportActions.loginFailure, (state, { error }) => ({
-    ...state,
-    error
-  })),
-
-  /* LOGOUT */
-  on(ReportActions.logout, state => ({ ...state })),
-  on(ReportActions.logoutFailure, (state, { error }) => ({
-    ...state,
-    error
   }))
 );
 
