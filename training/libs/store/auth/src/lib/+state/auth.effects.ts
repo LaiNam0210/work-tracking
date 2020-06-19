@@ -6,7 +6,7 @@ import * as AuthActions from './auth.actions';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ReportService } from '@training/backend';
+import { AuthService } from '@training/backend';
 
 @Injectable()
 export class AuthEffects {
@@ -15,25 +15,20 @@ export class AuthEffects {
       ofType(AuthActions.login),
       fetch({
         run: action => {
-          return this.http
-            .post<{ accessToken: string; expirationDate: number }>(
-              '/api/auth/login',
-              { username: action.username, password: action.password }
-            )
-            .pipe(
-              map(res => {
-                localStorage.setItem('accessToken', res.accessToken);
-                localStorage.setItem(
-                  'expirationDate',
-                  res.expirationDate.toString()
-                );
-                this.router.navigate(['/report']);
-                return AuthActions.loginSuccess({
-                  accessToken: res.accessToken,
-                  expirationDate: res.expirationDate
-                });
-              })
-            );
+          return this.authService.login(action.username, action.password).pipe(
+            map(res => {
+              localStorage.setItem('accessToken', res.accessToken);
+              localStorage.setItem(
+                'expirationDate',
+                res.expirationDate.toString()
+              );
+              this.router.navigate(['/report']);
+              return AuthActions.loginSuccess({
+                accessToken: res.accessToken,
+                expirationDate: res.expirationDate
+              });
+            })
+          );
         },
 
         onError: (action, error) => {
@@ -68,6 +63,6 @@ export class AuthEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    private reportService: ReportService
+    private authService: AuthService
   ) {}
 }
