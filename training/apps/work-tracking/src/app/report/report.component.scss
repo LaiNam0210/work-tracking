@@ -1,0 +1,39 @@
+@import '../../../../../libs/styles/src/core.scss';
+
+$header-padding: 16px;
+$header-height: 40px;
+
+.container {
+  padding: $app-margin;
+}
+
+.fluid {
+  height: calc(100vh - #{$page-header-height});
+}
+
+.overflow-div {
+  overflow: auto;
+}
+
+.container-fluid {
+  @extend .container, .fluid;
+}
+
+.heading-container {
+  height: $header-height;
+  margin: $header-padding 0 0 $header-padding;
+  h1 {
+    color: $primary-color;
+  }
+}
+
+.xs-size {
+  height: 100vh;
+}
+
+.list-container {
+  height: calc(
+    100vh - #{$header-padding} - #{$header-height} - #{2 * $app-margin} - #{$page-header-height}
+  );
+  overflow: auto;
+}

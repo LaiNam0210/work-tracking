@@ -1,0 +1,97 @@
+<div
+  class="report-detail-container"
+  *ngIf="report$ | async as report; else errorBlock"
+>
+  <h1>ID: {{ report.id }}</h1>
+  <p>Time created: {{ report.timeCreated | date: 'short' }}</p>
+  <div *ngIf="!editMode; else elseBlock">
+    <div class="button-holder">
+      <button mat-raised-button color="accent" (click)="onEdit()">
+        Edit Report
+      </button>
+      <button mat-raised-button color="warn" (click)="onDelete()">
+        Delete Report
+      </button>
+    </div>
+    <hr />
+    <span>
+      <p class="report-detail-label">Job yesterday:</p>
+      <p class="report-detail-content">{{ report.jobYesterday }}</p>
+    </span>
+    <span>
+      <p class="report-detail-label">Problems:</p>
+      <p class="report-detail-content">{{ report.problems }}</p>
+    </span>
+    <span>
+      <p class="report-detail-label">Job today:</p>
+      <p class="report-detail-content">{{ report.jobToday }}</p>
+    </span>
+  </div>
+  <ng-template #elseBlock>
+    <h2>Editing report</h2>
+
+    <form
+      class="report-form"
+      [formGroup]="reportForm"
+      (ngSubmit)="onReportSubmit()"
+    >
+      <mat-form-field appearance="fill" class="report-field">
+        <mat-label> <mat-icon>work</mat-icon> What I did yesterday </mat-label>
+        <textarea
+          [(ngModel)]="jobYesterday"
+          matInput
+          formControlName="newJYesterday"
+        ></textarea>
+        <mat-hint align="end">
+          Character count: {{ jobYesterday?.length || 0 }}
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="report-field">
+        <mat-label>
+          <mat-icon matPrefix>report_problem</mat-icon> Problems I have faced
+        </mat-label>
+        <textarea
+          [(ngModel)]="problems"
+          matInput
+          formControlName="newProblems"
+        ></textarea>
+        <mat-hint align="end">
+          Character count: {{ problems?.length || 0 }}
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="report-field">
+        <mat-label>
+          <mat-icon>trending_up</mat-icon> My plan for today
+        </mat-label>
+        <textarea
+          [(ngModel)]="jobToday"
+          matInput
+          formControlName="newJToday"
+        ></textarea>
+        <mat-hint align="end">
+          Character count: {{ jobToday?.length || 0 }}
+        </mat-hint>
+      </mat-form-field>
+
+      <div class="btn-container">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          class="report-create-btn"
+          [disabled]="reportForm.invalid"
+        >
+          Save changes
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</div>
+
+<ng-template #errorBlock>
+  <div *ngIf="error$ | async as error">
+    <h1>{{ error }}</h1>
+  </div>
+</ng-template>

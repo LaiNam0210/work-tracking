@@ -1,0 +1,13 @@
+<div>
+  <training-report-item
+    *ngFor="let report of reports$ | async; let i = index"
+    [report]="report"
+    [index]="i"
+  ></training-report-item>
+  <div *ngIf="error$ | async as error">
+    <h2>Error: {{ error.message ? error.message : 'Unknown error' }}</h2>
+  </div>
+  <div *ngIf="noReportCreated">
+    <h2>There is no report created!</h2>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div fxLayout="column" class="login-form-container">
+  <h1>Login</h1>
+  <form class="report-form" [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-form-field appearance="fill" class="report-field">
+      <mat-label> <mat-icon>person</mat-icon> Username</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="report-field">
+      <mat-label> <mat-icon>lock</mat-icon> Password</mat-label>
+      <input matInput formControlName="password" type="password" />
+    </mat-form-field>
+
+    <div class="btn-container">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        class="report-create-btn"
+        [disabled]="loginForm.invalid"
+      >
+        Login
+      </button>
+    </div>
+  </form>
+</div>
