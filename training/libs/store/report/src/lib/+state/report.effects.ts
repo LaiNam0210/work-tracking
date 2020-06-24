@@ -90,7 +90,6 @@ export class ReportEffects {
         run: action => {
           return this.reportService.deleteReport(action.index).pipe(
             map((obj: { deletedId: string }) => {
-              alert(`Deleted report with id ${obj.deletedId}`);
               this.router.navigate(['/report']);
               return ReportActions.deleteReportSuccess({
                 deletedId: obj.deletedId

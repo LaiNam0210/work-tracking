@@ -10,6 +10,8 @@ enum ReportManipulatingActions {
 }
 
 const MSG_ADDED_REPORT = 'New report added successfully!';
+const MSG_REMOVED_REPORT = 'The report was removed successfully!';
+
 const ACTION_ADDED_REPORT = ReportManipulatingActions.VIEW_ADDED_REPORT;
 
 @Component({
@@ -45,17 +47,22 @@ export class ReportListComponent implements OnInit {
     });
   }
 
-  private _isOneNewReportAdded(currentReportList) {
-    console.log(currentReportList.length, this.numOfReport);
+  private _isOneReportAdded(currentReportList) {
     return currentReportList.length - this.numOfReport === 1;
+  }
+
+  private _isOneReportRemoved(currentReportList) {
+    return currentReportList.length - this.numOfReport === -1;
   }
 
   ngOnInit(): void {
     this.reports$
       .pipe(filter(report => report.length !== 0))
       .subscribe(report => {
-        if (this._isOneNewReportAdded(report)) {
+        if (this._isOneReportAdded(report)) {
           this.openSnackBar(MSG_ADDED_REPORT, ACTION_ADDED_REPORT);
+        } else if (this._isOneReportRemoved(report)) {
+          this.openSnackBar(MSG_REMOVED_REPORT);
         }
         this.numOfReport = report.length;
       });
