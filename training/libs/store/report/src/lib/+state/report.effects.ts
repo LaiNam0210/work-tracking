@@ -121,7 +121,6 @@ export class ReportEffects {
                   jobToday: action.updatedReport.jobToday
                 }
               };
-              alert(`Updated report with id ${updatedReport.id}`);
               this.router.navigate(['/report']);
               return ReportActions.updateReportSuccess({
                 updatedReport: update
