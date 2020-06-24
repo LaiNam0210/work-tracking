@@ -4,6 +4,9 @@
     [report]="report"
     [index]="i"
   ></training-report-item>
+  <div *ngIf="(reports$ | async)?.length == 0">
+    <h2>You have not created any report.</h2>
+  </div>
   <div *ngIf="error$ | async as error">
     <h2>Error: {{ error.message ? error.message : 'Unknown error' }}</h2>
   </div>

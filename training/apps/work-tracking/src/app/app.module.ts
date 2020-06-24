@@ -30,6 +30,7 @@ import { AuthInterceptorService } from '@training/auth';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
 import { StoreAuthModule } from '@training/store/auth';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { StoreAuthModule } from '@training/store/auth';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    MatSnackBarModule,
     StoreReportModule,
     StoreAuthModule,
     NxModule.forRoot(),

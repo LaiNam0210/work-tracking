@@ -67,7 +67,6 @@ export class ReportEffects {
         run: action => {
           return this.reportService.addReport(action.newReport).pipe(
             map((addedReport: Report) => {
-              alert(`Added report with id ${addedReport.id}`);
               this.router.navigate(['/report']);
               return ReportActions.addReportSuccess({
                 addedReport: addedReport
