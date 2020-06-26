@@ -16,7 +16,6 @@ import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportItemComponent } from './report-list/report-item/report-item.component';
 import { ReportCreatorComponent } from './report-creator/report-creator.component';
 import { ReportStartComponent } from './report-start/report-start.component';
-import { UnauthorizedPageComponent } from '../unauthorized-page/unauthorized-page.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +25,7 @@ import { UnauthorizedPageComponent } from '../unauthorized-page/unauthorized-pag
     ReportItemComponent,
     ReportCreatorComponent,
     ReportStartComponent,
-    HeaderComponent,
-    UnauthorizedPageComponent
+    HeaderComponent
   ],
   imports: [
     CommonModule,
