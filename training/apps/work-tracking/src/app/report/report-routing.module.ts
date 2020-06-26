@@ -4,9 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReportComponent } from './report.component';
 import { ReportStartComponent } from './report-start/report-start.component';
 import { ReportDetailComponent } from './report-detail/report-detail.component';
-import { AuthPageComponent } from '../auth-page/auth-page.component';
 import { UnauthorizedPageComponent } from '../unauthorized-page/unauthorized-page.component';
-import { NotFoundPageComponent } from '../not-found-page/not-found-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/report', pathMatch: 'full' },
@@ -20,7 +18,8 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    component: AuthPageComponent
+    loadChildren: () =>
+      import('../auth-page/auth-page.module').then(m => m.AuthPageModule)
   },
   {
     path: 'unauthorized',
@@ -28,7 +27,10 @@ const routes: Routes = [
   },
   {
     path: 'not-found',
-    component: NotFoundPageComponent
+    loadChildren: () =>
+      import('../not-found-page/not-found-page.module').then(
+        m => m.NotFoundPageModule
+      )
   },
   { path: '**', redirectTo: '/not-found' }
 ];
