@@ -16,7 +16,6 @@ import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportItemComponent } from './report-list/report-item/report-item.component';
 import { ReportCreatorComponent } from './report-creator/report-creator.component';
 import { ReportStartComponent } from './report-start/report-start.component';
-import { AuthPageComponent } from '../auth-page/auth-page.component';
 import { NotFoundPageComponent } from '../not-found-page/not-found-page.component';
 import { UnauthorizedPageComponent } from '../unauthorized-page/unauthorized-page.component';
 
@@ -28,7 +27,6 @@ import { UnauthorizedPageComponent } from '../unauthorized-page/unauthorized-pag
     ReportItemComponent,
     ReportCreatorComponent,
     ReportStartComponent,
-    AuthPageComponent,
     HeaderComponent,
     NotFoundPageComponent,
     UnauthorizedPageComponent
