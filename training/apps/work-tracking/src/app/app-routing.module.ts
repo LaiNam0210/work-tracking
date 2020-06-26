@@ -14,13 +14,7 @@ const appRoutes: Routes = [
     component: ReportComponent,
     children: [
       { path: '', component: ReportStartComponent },
-      {
-        path: ':index',
-        loadChildren: () =>
-          import('./report/report-detail/report-detail.module').then(
-            m => m.ReportDetailModule
-          )
-      }
+      { path: ':index', component: ReportDetailComponent }
     ]
   },
   {

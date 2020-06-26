@@ -15,6 +15,7 @@ import { AppComponent } from './app.component';
 import { ReportComponent } from './report/report.component';
 import { ReportListComponent } from './report/report-list/report-list.component';
 import { ReportItemComponent } from './report/report-list/report-item/report-item.component';
+import { ReportDetailComponent } from './report/report-detail/report-detail.component';
 import { ReportCreatorComponent } from './report/report-creator/report-creator.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ReportStartComponent } from './report/report-start/report-start.component';
@@ -36,6 +37,7 @@ import { StoreAuthModule } from '@training/store/auth';
     AppComponent,
     ReportComponent,
     ReportListComponent,
+    ReportDetailComponent,
     ReportItemComponent,
     ReportCreatorComponent,
     ReportStartComponent,

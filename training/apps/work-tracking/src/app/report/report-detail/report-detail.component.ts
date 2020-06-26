@@ -51,9 +51,11 @@ export class ReportDetailComponent implements OnInit {
   onEdit(): void {
     this.editMode = true;
     this.report$.subscribe(report => {
-      this.jobYesterday = report.jobYesterday;
-      this.problems = report.problems;
-      this.jobToday = report.jobToday;
+      if (!!report) {
+        this.jobYesterday = report.jobYesterday;
+        this.problems = report.problems;
+        this.jobToday = report.jobToday;
+      }
     });
   }
 
