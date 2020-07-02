@@ -7,11 +7,11 @@ import * as ReportSelectors from './report.selectors';
 import {
   addReport,
   loadReport,
-  loadReportByIndex,
+  loadReportById,
   deleteReport,
   updateReport
 } from './report.actions';
-import { Report } from '@training/report';
+import { ReportCreateRequest } from '@training/report-interfaces';
 
 @Injectable()
 export class ReportFacade {
@@ -26,20 +26,25 @@ export class ReportFacade {
     this.dispatch(loadReport());
   }
 
-  loadReportByIndex(index: number) {
-    this.dispatch(loadReportByIndex({ index }));
+  loadReportById(id: number) {
+    this.dispatch(loadReportById({ id }));
   }
 
-  addReport(newReport: Report) {
-    this.dispatch(addReport({ newReport }));
+  addReport(req: ReportCreateRequest) {
+    this.dispatch(addReport({ req }));
   }
 
-  deleteReport(index: number) {
-    this.dispatch(deleteReport({ index }));
+  deleteReport(id: number) {
+    this.dispatch(deleteReport({ id }));
   }
 
-  updateReport(updatedReport: Report) {
-    this.dispatch(updateReport({ updatedReport }));
+  updateReport(
+    id: number,
+    jobYesterday: string,
+    problems: string,
+    jobToday: string
+  ) {
+    this.dispatch(updateReport({ id, jobYesterday, problems, jobToday }));
   }
 
   dispatch(action: Action) {

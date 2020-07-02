@@ -376,6 +376,32 @@
           "style": "scss"
         }
       }
+    },
+    "report-interfaces": {
+      "root": "libs/report-interfaces",
+      "sourceRoot": "libs/report-interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/report-interfaces/tsconfig.lib.json",
+              "libs/report-interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/report-interfaces/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/report-interfaces/jest.config.js",
+            "tsConfig": "libs/report-interfaces/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

@@ -8,7 +8,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export const REPORT_FEATURE_KEY = 'report';
 
 export interface State extends EntityState<ReportEntity> {
-  selectedId?: string; // which Report record has been selected
+  selectedId?: number; // which Report record has been selected
   loaded: boolean; // has the Report list been loaded
   error?: string | null | HttpErrorResponse; // last none error (if any)
 }
@@ -43,20 +43,20 @@ const reportReducer = createReducer(
   })),
 
   /* LOAD BY INDEX */
-  on(ReportActions.loadReportByIndex, (state, { index }) => ({
+  on(ReportActions.loadReportById, (state, { id }) => ({
     ...state
   })),
-  on(ReportActions.loadReportByIndexSuccess, (state, { selectedId }) => ({
+  on(ReportActions.loadReportByIdSuccess, (state, { selectedId }) => ({
     ...state,
     selectedId: selectedId
   })),
-  on(ReportActions.loadReportByIndexFailure, (state, { error }) => ({
+  on(ReportActions.loadReportByIdFailure, (state, { error }) => ({
     ...state,
     error
   })),
 
   /* ADD REPORT */
-  on(ReportActions.addReport, (state, { newReport }) => ({ ...state })),
+  on(ReportActions.addReport, (state, { req }) => ({ ...state })),
   on(ReportActions.addReportSuccess, (state, { addedReport }) =>
     reportAdapter.addOne(addedReport, { ...state })
   ),
@@ -66,7 +66,7 @@ const reportReducer = createReducer(
   })),
 
   /* DELETE REPORT */
-  on(ReportActions.deleteReport, (state, { index }) => ({ ...state })),
+  on(ReportActions.deleteReport, (state, { id }) => ({ ...state })),
   on(ReportActions.deleteReportSuccess, (state, { deletedId }) =>
     reportAdapter.removeOne(deletedId, { ...state })
   ),
@@ -76,10 +76,13 @@ const reportReducer = createReducer(
   })),
 
   /* UPDATE REPORT */
-  on(ReportActions.updateReport, (state, { updatedReport }) => ({
-    ...state,
-    selectedId: updatedReport.id
-  })),
+  on(
+    ReportActions.updateReport,
+    (state, { id, jobYesterday, problems, jobToday }) => ({
+      ...state,
+      selectedId: id
+    })
+  ),
   on(ReportActions.updateReportSuccess, (state, { updatedReport }) =>
     reportAdapter.updateOne(updatedReport, { ...state })
   ),

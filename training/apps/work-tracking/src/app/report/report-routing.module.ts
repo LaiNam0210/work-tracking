@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ReportComponent,
     children: [
       { path: '', component: ReportStartComponent },
-      { path: ':index', component: ReportDetailComponent }
+      { path: ':id', component: ReportDetailComponent }
     ]
   }
 ];

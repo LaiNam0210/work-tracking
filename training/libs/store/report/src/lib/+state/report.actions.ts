@@ -3,6 +3,7 @@ import { Report } from '@training/report';
 import { Update } from '@ngrx/entity';
 
 import { ReportEntity } from './report.models';
+import { ReportCreateRequest } from '@training/report-interfaces';
 
 export const loadReport = createAction('[Report] Load Report');
 
@@ -18,27 +19,27 @@ export const loadReportFailure = createAction(
 
 export const loadReportId = createAction(
   '[Report] Load Report Id',
-  props<{ id: string }>()
+  props<{ id: number }>()
 );
 
-export const loadReportByIndex = createAction(
+export const loadReportById = createAction(
   '[Report] Load Report By Index',
-  props<{ index: number }>()
+  props<{ id: number }>()
 );
 
-export const loadReportByIndexSuccess = createAction(
+export const loadReportByIdSuccess = createAction(
   '[Report] Load Report By Index Success',
-  props<{ selectedId: string }>()
+  props<{ selectedId: number }>()
 );
 
-export const loadReportByIndexFailure = createAction(
+export const loadReportByIdFailure = createAction(
   '[Report] Load Report By Index Failure',
   props<{ error: any }>()
 );
 
 export const addReport = createAction(
   '[Report] Add Report',
-  props<{ newReport: Report }>()
+  props<{ req: ReportCreateRequest }>()
 );
 
 export const addReportSuccess = createAction(
@@ -53,12 +54,12 @@ export const addReportFailure = createAction(
 
 export const deleteReport = createAction(
   '[Report] Delete Report',
-  props<{ index: number }>()
+  props<{ id: number }>()
 );
 
 export const deleteReportSuccess = createAction(
   '[Report] Delete Report Success',
-  props<{ deletedId: string }>()
+  props<{ deletedId: number }>()
 );
 
 export const deleteReportFailure = createAction(
@@ -68,7 +69,12 @@ export const deleteReportFailure = createAction(
 
 export const updateReport = createAction(
   '[Report] Update report',
-  props<{ updatedReport: Report }>()
+  props<{
+    id: number;
+    jobYesterday: string;
+    problems: string;
+    jobToday: string;
+  }>()
 );
 
 export const updateReportSuccess = createAction(

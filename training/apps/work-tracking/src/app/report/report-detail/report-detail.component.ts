@@ -34,7 +34,7 @@ export class ReportDetailComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.route.params.subscribe(params =>
-      this.reportFacade.loadReportByIndex(+params['index'])
+      this.reportFacade.loadReportById(+params['id'])
     );
   }
 
@@ -43,9 +43,9 @@ export class ReportDetailComponent implements OnInit {
   }
 
   onDelete(): void {
-    let index: number;
-    this.route.params.subscribe(value => (index = +value['index']));
-    this.reportFacade.deleteReport(index);
+    let id: number;
+    this.route.params.subscribe(params => (id = +params['id']));
+    this.reportFacade.deleteReport(id);
   }
 
   onEdit(): void {
@@ -62,11 +62,14 @@ export class ReportDetailComponent implements OnInit {
   onReportSubmit(): void {
     this.editMode = false;
     const subs = this.report$.subscribe((report: Report) => {
-      const updatedReport = { ...report };
-      updatedReport.jobYesterday = this.jobYesterday;
-      updatedReport.problems = this.problems;
-      updatedReport.jobToday = this.jobToday;
-      this.reportFacade.updateReport(updatedReport);
+      let id: number;
+      this.route.params.subscribe(params => (id = +params['id']));
+      this.reportFacade.updateReport(
+        id,
+        this.jobYesterday,
+        this.problems,
+        this.jobToday
+      );
     });
     subs.unsubscribe();
   }

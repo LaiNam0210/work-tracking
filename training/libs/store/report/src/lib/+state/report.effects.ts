@@ -32,20 +32,19 @@ export class ReportEffects {
     )
   );
 
-  loadReportByIndex$ = createEffect(() =>
+  loadReportById$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ReportActions.loadReportByIndex),
+      ofType(ReportActions.loadReportById),
       fetch({
         run: action => {
-          return this.reportService.loadReportByIndex(action.index).pipe(
+          return this.reportService.loadReportById(action.id).pipe(
             map((report: Report) => {
-              //FIXME: Is this good to handle error when user enter large index?
               if (!report) {
-                return ReportActions.loadReportByIndexFailure({
+                return ReportActions.loadReportByIdFailure({
                   error: 'Cant find chosen report!'
                 });
               }
-              return ReportActions.loadReportByIndexSuccess({
+              return ReportActions.loadReportByIdSuccess({
                 selectedId: report.id
               });
             })
@@ -54,7 +53,7 @@ export class ReportEffects {
 
         onError: (action, error) => {
           console.error('Error', error);
-          return ReportActions.loadReportByIndexFailure({ error });
+          return ReportActions.loadReportByIdFailure({ error });
         }
       })
     )
@@ -65,7 +64,7 @@ export class ReportEffects {
       ofType(ReportActions.addReport),
       fetch({
         run: action => {
-          return this.reportService.addReport(action.newReport).pipe(
+          return this.reportService.addReport(action.req).pipe(
             map((addedReport: Report) => {
               alert(`Added report with id ${addedReport.id}`);
               this.router.navigate(['/report']);
@@ -89,12 +88,12 @@ export class ReportEffects {
       ofType(ReportActions.deleteReport),
       fetch({
         run: action => {
-          return this.reportService.deleteReport(action.index).pipe(
-            map((obj: { deletedId: string }) => {
-              alert(`Deleted report with id ${obj.deletedId}`);
+          return this.reportService.deleteReport(action.id).pipe(
+            map(deletedId => {
+              alert(`Deleted report with id ${deletedId}`);
               this.router.navigate(['/report']);
               return ReportActions.deleteReportSuccess({
-                deletedId: obj.deletedId
+                deletedId: deletedId
               });
             })
           );
@@ -113,23 +112,30 @@ export class ReportEffects {
       ofType(ReportActions.updateReport),
       fetch({
         run: action => {
-          return this.reportService.updateReport(action.updatedReport).pipe(
-            map(updatedReport => {
-              const update: Update<Report> = {
-                id: action.updatedReport.id,
-                changes: {
-                  jobYesterday: action.updatedReport.jobYesterday,
-                  problems: action.updatedReport.problems,
-                  jobToday: action.updatedReport.jobToday
-                }
-              };
-              alert(`Updated report with id ${updatedReport.id}`);
-              this.router.navigate(['/report']);
-              return ReportActions.updateReportSuccess({
-                updatedReport: update
-              });
-            })
-          );
+          return this.reportService
+            .updateReport(
+              action.id,
+              action.jobYesterday,
+              action.problems,
+              action.jobToday
+            )
+            .pipe(
+              map(updatedReport => {
+                const update: Update<Report> = {
+                  id: action.id,
+                  changes: {
+                    jobYesterday: action.jobYesterday,
+                    problems: action.problems,
+                    jobToday: action.jobToday
+                  }
+                };
+                alert(`Updated report with id ${updatedReport.id}`);
+                this.router.navigate(['/report']);
+                return ReportActions.updateReportSuccess({
+                  updatedReport: update
+                });
+              })
+            );
         },
 
         onError: (action, error) => {
