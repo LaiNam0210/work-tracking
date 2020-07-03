@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType, Effect } from '@ngrx/effects';
 import { fetch } from '@nrwl/angular';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { catchError, filter, map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 import { Router } from '@angular/router';
 
 import * as ReportActions from './report.actions';
 import { Report } from '@training/report';
 import { ReportService } from '@training/backend';
+import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
+import { RouterStateUrl } from '@training/store/router';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ReportEffects {
@@ -32,31 +35,17 @@ export class ReportEffects {
     )
   );
 
-  loadReportById$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ReportActions.loadReportById),
-      fetch({
-        run: action => {
-          return this.reportService.loadReportById(action.id).pipe(
-            map((report: Report) => {
-              if (!report) {
-                return ReportActions.loadReportByIdFailure({
-                  error: 'Cant find chosen report!'
-                });
-              }
-              return ReportActions.loadReportByIdSuccess({
-                selectedId: report.id
-              });
-            })
-          );
-        },
-
-        onError: (action, error) => {
-          console.error('Error', error);
-          return ReportActions.loadReportByIdFailure({ error });
-        }
-      })
-    )
+  @Effect()
+  loadReportById$ = this.actions$.pipe(
+    ofType(ROUTER_NAVIGATION),
+    map((r: RouterNavigationAction<RouterStateUrl>) => {
+      return { selectedId: r.payload.routerState.params['id'] };
+    }),
+    filter(({ selectedId }) => !!selectedId),
+    map(({ selectedId }) => {
+      return ReportActions.loadReportByIdSuccess({ selectedId });
+    }),
+    catchError(error => of(ReportActions.loadReportByIdFailure({ error })))
   );
 
   addReport$ = createEffect(() =>

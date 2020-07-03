@@ -20,7 +20,6 @@ export class ReportDetailComponent implements OnInit {
     newProblems: [null, Validators.required],
     newJToday: [null, Validators.required]
   });
-  id: string;
   jobYesterday: string;
   problems: string;
   jobToday: string;
@@ -28,15 +27,10 @@ export class ReportDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private http: HttpClient,
     private reportFacade: ReportFacade,
     private fb: FormBuilder
-  ) {
-    this.route.params.subscribe(params =>
-      this.reportFacade.loadReportById(+params['id'])
-    );
-  }
+  ) {}
 
   ngOnInit(): void {
     this.report$ = this.reportFacade.selectedReport$;

@@ -17,16 +17,6 @@ export const loadReportFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadReportId = createAction(
-  '[Report] Load Report Id',
-  props<{ id: number }>()
-);
-
-export const loadReportById = createAction(
-  '[Report] Load Report By Index',
-  props<{ id: number }>()
-);
-
 export const loadReportByIdSuccess = createAction(
   '[Report] Load Report By Index Success',
   props<{ selectedId: number }>()
