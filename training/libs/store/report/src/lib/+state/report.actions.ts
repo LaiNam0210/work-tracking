@@ -42,37 +42,36 @@ export const addReportFailure = createAction(
   props<{ error: any }>()
 );
 
-export const deleteReport = createAction(
-  '[Report] Delete Report',
-  props<{ id: number }>()
+export const deleteSelectedReport = createAction(
+  '[Report] Delete Selected Report',
+  props<{}>()
 );
 
-export const deleteReportSuccess = createAction(
-  '[Report] Delete Report Success',
+export const deleteSelectedReportSuccess = createAction(
+  '[Report] Delete Selected Report Success',
   props<{ deletedId: number }>()
 );
 
-export const deleteReportFailure = createAction(
-  '[Report] Delete Report Failure',
+export const deleteSelectedReportFailure = createAction(
+  '[Report] Delete Selected Report Failure',
   props<{ error: any }>()
 );
 
-export const updateReport = createAction(
-  '[Report] Update report',
+export const updateSelectedReport = createAction(
+  '[Report] Update Selected Report',
   props<{
-    id: number;
     jobYesterday: string;
     problems: string;
     jobToday: string;
   }>()
 );
 
-export const updateReportSuccess = createAction(
-  '[Report] Update Report Success',
+export const updateSelectedReportSuccess = createAction(
+  '[Report] Update Selected Report Success',
   props<{ updatedReport: Update<ReportEntity> }>()
 );
 
-export const updateReportFailure = createAction(
-  '[Report] Update Report Failure',
+export const updateSelectedReportFailure = createAction(
+  '[Report] Update Selected Report Failure',
   props<{ error: any }>()
 );

@@ -7,8 +7,8 @@ import * as ReportSelectors from './report.selectors';
 import {
   addReport,
   loadReport,
-  deleteReport,
-  updateReport
+  deleteSelectedReport,
+  updateSelectedReport
 } from './report.actions';
 import { ReportCreateRequest } from '@training/report-interfaces';
 
@@ -29,17 +29,12 @@ export class ReportFacade {
     this.dispatch(addReport({ req }));
   }
 
-  deleteReport(id: number) {
-    this.dispatch(deleteReport({ id }));
+  deleteSelectedReport() {
+    this.dispatch(deleteSelectedReport({}));
   }
 
-  updateReport(
-    id: number,
-    jobYesterday: string,
-    problems: string,
-    jobToday: string
-  ) {
-    this.dispatch(updateReport({ id, jobYesterday, problems, jobToday }));
+  updateReport(jobYesterday: string, problems: string, jobToday: string) {
+    this.dispatch(updateSelectedReport({ jobYesterday, problems, jobToday }));
   }
 
   dispatch(action: Action) {

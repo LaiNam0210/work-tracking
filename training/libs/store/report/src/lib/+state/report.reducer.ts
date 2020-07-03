@@ -60,26 +60,25 @@ const reportReducer = createReducer(
     error
   })),
 
-  on(ReportActions.deleteReport, (state, { id }) => ({ ...state })),
-  on(ReportActions.deleteReportSuccess, (state, { deletedId }) =>
+  on(ReportActions.deleteSelectedReport, state => ({ ...state })),
+  on(ReportActions.deleteSelectedReportSuccess, (state, { deletedId }) =>
     reportAdapter.removeOne(deletedId, { ...state })
   ),
-  on(ReportActions.deleteReportFailure, (state, { error }) => ({
+  on(ReportActions.deleteSelectedReportFailure, (state, { error }) => ({
     ...state,
     error
   })),
 
   on(
-    ReportActions.updateReport,
-    (state, { id, jobYesterday, problems, jobToday }) => ({
-      ...state,
-      selectedId: id
+    ReportActions.updateSelectedReport,
+    (state, { jobYesterday, problems, jobToday }) => ({
+      ...state
     })
   ),
-  on(ReportActions.updateReportSuccess, (state, { updatedReport }) =>
+  on(ReportActions.updateSelectedReportSuccess, (state, { updatedReport }) =>
     reportAdapter.updateOne(updatedReport, { ...state })
   ),
-  on(ReportActions.deleteReportFailure, (state, { error }) => ({
+  on(ReportActions.deleteSelectedReportFailure, (state, { error }) => ({
     ...state,
     error
   }))
