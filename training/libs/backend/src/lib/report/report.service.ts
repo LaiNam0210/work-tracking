@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Report } from '@training/report';
 import { Observable } from 'rxjs';
-import { ReportCreateRequest } from '@training/report-interfaces';
+import {
+  ReportCreateRequest,
+  ReportUpdateRequest
+} from '@training/report-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -23,18 +26,9 @@ export class ReportService {
     return this.http.delete<number>(deleteReportLink);
   }
 
-  updateReport(
-    id: number,
-    jobYesterday: string,
-    problems: string,
-    jobToday: string
-  ) {
+  updateReport(id: number, req: ReportUpdateRequest) {
     const updateReportLink = `/api/report/${id}`;
-    return this.http.put<Report>(updateReportLink, {
-      jobYesterday,
-      problems,
-      jobToday
-    });
+    return this.http.put<Report>(updateReportLink, { req });
   }
 
   constructor(private http: HttpClient) {}

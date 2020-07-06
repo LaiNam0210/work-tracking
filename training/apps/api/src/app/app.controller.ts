@@ -15,7 +15,11 @@ import { Report } from '@training/report';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { ReportCreateRequest } from '@training/report-interfaces';
+import {
+  ReportCreateRequest,
+  ReportUpdateRequest,
+  ReportUpdateResponse
+} from '@training/report-interfaces';
 
 @Controller()
 export class AppController {
@@ -55,15 +59,8 @@ export class AppController {
   @Put('report/:id')
   updateReport(
     @Param() params,
-    @Body('jobYesterday') jobYesterday: string,
-    @Body('problems') problems: string,
-    @Body('jobToday') jobToday: string
-  ): Report {
-    return this.appService.updateReport(
-      +params.id,
-      jobYesterday,
-      problems,
-      jobToday
-    );
+    @Body('req') req: ReportUpdateRequest
+  ): ReportUpdateResponse {
+    return this.appService.updateReport(+params.id, req);
   }
 }

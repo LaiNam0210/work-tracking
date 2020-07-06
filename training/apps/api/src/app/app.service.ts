@@ -1,23 +1,119 @@
 import { Injectable } from '@nestjs/common';
 
 import { Report } from '@training/report';
-import { ReportCreateRequest } from '@training/report-interfaces';
+import {
+  ReportCreateRequest,
+  ReportUpdateRequest,
+  ReportUpdateResponse
+} from '@training/report-interfaces';
 @Injectable()
 export class AppService {
   private reports: Report[] = [
-    new Report(101, 'Special', 'Special', 'Special', Date.now()),
-    new Report(102, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(103, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(104, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(105, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(106, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(107, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(108, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(109, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(110, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(112, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(113, 'Dummy', 'Dummy', 'Dummy', Date.now()),
-    new Report(114, 'Dummy', 'Dummy', 'Dummy', Date.now())
+    {
+      id: 101,
+      jobYesterday: 'Special',
+      problems: 'Special',
+      jobToday: 'Special',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 102,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 103,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 104,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 105,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 106,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 107,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 108,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 109,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 110,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 111,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 112,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 113,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 114,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report,
+    {
+      id: 115,
+      jobYesterday: 'Dummy',
+      problems: 'Dummy',
+      jobToday: 'Dummy',
+      timeCreated: Date.now()
+    } as Report
   ];
 
   getReports(): Report[] {
@@ -68,18 +164,16 @@ export class AppService {
     return id;
   }
 
-  updateReport(
-    id: number,
-    jobYesterday: string,
-    problems: string,
-    jobToday: string
-  ): Report {
+  updateReport(id: number, req: ReportUpdateRequest): ReportUpdateResponse {
     const selectedReport = this.getReportById(id);
     if (!!selectedReport) {
-      selectedReport.jobYesterday = jobYesterday;
-      selectedReport.problems = problems;
-      selectedReport.jobToday = jobToday;
-      return selectedReport;
+      selectedReport.jobYesterday = req.jobYesterday;
+      selectedReport.problems = req.problems;
+      selectedReport.jobToday = req.jobToday;
+      const reportUpdateResponse = {
+        id: selectedReport.id
+      } as ReportUpdateResponse;
+      return reportUpdateResponse;
     }
   }
 }

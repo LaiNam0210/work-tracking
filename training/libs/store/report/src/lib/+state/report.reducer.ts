@@ -69,12 +69,9 @@ const reportReducer = createReducer(
     error
   })),
 
-  on(
-    ReportActions.updateSelectedReport,
-    (state, { jobYesterday, problems, jobToday }) => ({
-      ...state
-    })
-  ),
+  on(ReportActions.updateSelectedReport, (state, { req }) => ({
+    ...state
+  })),
   on(ReportActions.updateSelectedReportSuccess, (state, { updatedReport }) =>
     reportAdapter.updateOne(updatedReport, { ...state })
   ),
