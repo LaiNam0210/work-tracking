@@ -22,7 +22,9 @@
       "@training/styles": ["libs/styles/src/index.ts"],
       "@training/auth": ["libs/auth/src/index.ts"],
       "@training/backend": ["libs/backend/src/index.ts"],
-      "@training/store/auth": ["libs/store/auth/src/index.ts"]
+      "@training/store/auth": ["libs/store/auth/src/index.ts"],
+      "@training/report-interfaces": ["libs/report-interfaces/src/index.ts"],
+      "@training/store/router": ["libs/store/router/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

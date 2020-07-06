@@ -1,14 +1,19 @@
 import { Injectable } from '@angular/core';
-import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { fetch } from '@nrwl/angular';
+import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { DataPersistence, fetch } from '@nrwl/angular';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { catchError, filter, map } from 'rxjs/operators';
 import { Update } from '@ngrx/entity';
 import { Router } from '@angular/router';
 
 import * as ReportActions from './report.actions';
+import * as fromReport from './report.reducer';
+import { REPORT_FEATURE_KEY } from './report.reducer';
 import { Report } from '@training/report';
 import { ReportService } from '@training/backend';
+import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
+import { RouterStateUrl } from '@training/store/router';
+import { of } from 'rxjs';
 
 @Injectable()
 export class ReportEffects {
@@ -32,32 +37,17 @@ export class ReportEffects {
     )
   );
 
-  loadReportByIndex$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ReportActions.loadReportByIndex),
-      fetch({
-        run: action => {
-          return this.reportService.loadReportByIndex(action.index).pipe(
-            map((report: Report) => {
-              //FIXME: Is this good to handle error when user enter large index?
-              if (!report) {
-                return ReportActions.loadReportByIndexFailure({
-                  error: 'Cant find chosen report!'
-                });
-              }
-              return ReportActions.loadReportByIndexSuccess({
-                selectedId: report.id
-              });
-            })
-          );
-        },
-
-        onError: (action, error) => {
-          console.error('Error', error);
-          return ReportActions.loadReportByIndexFailure({ error });
-        }
-      })
-    )
+  @Effect()
+  loadReportById$ = this.actions$.pipe(
+    ofType(ROUTER_NAVIGATION),
+    map((r: RouterNavigationAction<RouterStateUrl>) => {
+      return { selectedId: r.payload.routerState.params['id'] };
+    }),
+    filter(({ selectedId }) => !!selectedId),
+    map(({ selectedId }) => {
+      return ReportActions.loadReportByIdSuccess({ selectedId });
+    }),
+    catchError(error => of(ReportActions.loadReportByIdFailure({ error })))
   );
 
   addReport$ = createEffect(() =>
@@ -65,7 +55,7 @@ export class ReportEffects {
       ofType(ReportActions.addReport),
       fetch({
         run: action => {
-          return this.reportService.addReport(action.newReport).pipe(
+          return this.reportService.addReport(action.req).pipe(
             map((addedReport: Report) => {
               alert(`Added report with id ${addedReport.id}`);
               this.router.navigate(['/report']);
@@ -84,66 +74,76 @@ export class ReportEffects {
     )
   );
 
-  deleteReport$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ReportActions.deleteReport),
-      fetch({
-        run: action => {
-          return this.reportService.deleteReport(action.index).pipe(
-            map((obj: { deletedId: string }) => {
-              alert(`Deleted report with id ${obj.deletedId}`);
+  deleteSelectedReport$ = createEffect(() =>
+    this.dataPersistence.fetch(ReportActions.deleteSelectedReport, {
+      run: (
+        action: ReturnType<typeof ReportActions.deleteSelectedReport>,
+        state: fromReport.ReportPartialState
+      ) => {
+        return this.reportService
+          .deleteReport(state[REPORT_FEATURE_KEY].selectedId)
+          .pipe(
+            map(deletedId => {
+              alert(`Deleted report with id ${deletedId}`);
               this.router.navigate(['/report']);
-              return ReportActions.deleteReportSuccess({
-                deletedId: obj.deletedId
+              return ReportActions.deleteSelectedReportSuccess({
+                deletedId: deletedId
               });
             })
           );
-        },
+      },
 
-        onError: (action, error) => {
-          console.error('Error from effect: ', error);
-          return ReportActions.addReportFailure({ error });
-        }
-      })
-    )
+      onError: (action, error) => {
+        console.error('Error from effect: ', error);
+        return ReportActions.addReportFailure({ error });
+      }
+    })
   );
 
-  updateReport$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ReportActions.updateReport),
-      fetch({
-        run: action => {
-          return this.reportService.updateReport(action.updatedReport).pipe(
+  updateSelectedReport$ = createEffect(() =>
+    this.dataPersistence.fetch(ReportActions.updateSelectedReport, {
+      run: (
+        action: ReturnType<typeof ReportActions.updateSelectedReport>,
+        state: fromReport.ReportPartialState
+      ) => {
+        return this.reportService
+          .updateReport(
+            state[REPORT_FEATURE_KEY].selectedId,
+            action.jobYesterday,
+            action.problems,
+            action.jobToday
+          )
+          .pipe(
             map(updatedReport => {
               const update: Update<Report> = {
-                id: action.updatedReport.id,
+                id: state[REPORT_FEATURE_KEY].selectedId,
                 changes: {
-                  jobYesterday: action.updatedReport.jobYesterday,
-                  problems: action.updatedReport.problems,
-                  jobToday: action.updatedReport.jobToday
+                  jobYesterday: action.jobYesterday,
+                  problems: action.problems,
+                  jobToday: action.jobToday
                 }
               };
               alert(`Updated report with id ${updatedReport.id}`);
               this.router.navigate(['/report']);
-              return ReportActions.updateReportSuccess({
+              return ReportActions.updateSelectedReportSuccess({
                 updatedReport: update
               });
             })
           );
-        },
+      },
 
-        onError: (action, error) => {
-          console.error('Error from effect: ', error);
-          return ReportActions.updateReportFailure({ error });
-        }
-      })
-    )
+      onError: (action, error) => {
+        console.error('Error from effect: ', error);
+        return ReportActions.updateSelectedReportFailure({ error });
+      }
+    })
   );
 
   constructor(
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private dataPersistence: DataPersistence<fromReport.ReportPartialState>
   ) {}
 }

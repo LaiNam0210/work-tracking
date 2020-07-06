@@ -1,39 +1,35 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ReportDetailComponent } from './report/report-detail/report-detail.component';
-import { ReportComponent } from './report/report.component';
-import { ReportStartComponent } from './report/report-start/report-start.component';
-import { AuthPageComponent } from './auth-page/auth-page.component';
-import { UnauthorizedPageComponent } from './unauthorized-page/unauthorized-page.component';
-import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/report', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/report',
+    pathMatch: 'full'
+  },
   {
     path: 'report',
-    component: ReportComponent,
-    children: [
-      { path: '', component: ReportStartComponent },
-      {
-        path: ':index',
-        loadChildren: () =>
-          import('./report/report-detail/report-detail.module').then(
-            m => m.ReportDetailModule
-          )
-      }
-    ]
+    loadChildren: () =>
+      import('./report/report.module').then(m => m.ReportModule)
   },
   {
     path: 'auth',
-    component: AuthPageComponent
+    loadChildren: () =>
+      import('./auth-page/auth-page.module').then(m => m.AuthPageModule)
   },
   {
     path: 'unauthorized',
-    component: UnauthorizedPageComponent
+    loadChildren: () =>
+      import('./unauthorized-page/unauthorized-page.module').then(
+        m => m.UnauthorizedPageModule
+      )
   },
   {
     path: 'not-found',
-    component: NotFoundPageComponent
+    loadChildren: () =>
+      import('./not-found-page/not-found-page.module').then(
+        m => m.NotFoundPageModule
+      )
   },
   { path: '**', redirectTo: '/not-found' }
 ];

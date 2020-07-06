@@ -376,6 +376,64 @@
           "style": "scss"
         }
       }
+    },
+    "report-interfaces": {
+      "root": "libs/report-interfaces",
+      "sourceRoot": "libs/report-interfaces/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/report-interfaces/tsconfig.lib.json",
+              "libs/report-interfaces/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/report-interfaces/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/report-interfaces/jest.config.js",
+            "tsConfig": "libs/report-interfaces/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "store-router": {
+      "projectType": "library",
+      "root": "libs/store/router",
+      "sourceRoot": "libs/store/router/src",
+      "prefix": "training",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/store/router/tsconfig.lib.json",
+              "libs/store/router/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/store/router/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/store/router/jest.config.js",
+            "tsConfig": "libs/store/router/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/store/router/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "cli": {
