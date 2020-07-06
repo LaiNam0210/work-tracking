@@ -2,34 +2,39 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Report } from '@training/report';
 import { Observable } from 'rxjs';
+import { ReportCreateRequest } from '@training/report-interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService {
   loadReports(): Observable<Report[]> {
-    const url = `/api/report`;
-    return this.http.get<Report[]>(url);
+    const loadReportsLink = `/api/report`;
+    return this.http.get<Report[]>(loadReportsLink);
   }
 
-  loadReportByIndex(index: number) {
-    const url = `/api/report/${index}`;
-    return this.http.get<Report>(url);
+  addReport(req: ReportCreateRequest) {
+    const addReportLink = `/api/report`;
+    return this.http.post<Report>(addReportLink, { req });
   }
 
-  addReport(newReport: Report) {
-    const url = `/api/add_report`;
-    return this.http.post<Report>(url, newReport);
+  deleteReport(id: number) {
+    const deleteReportLink = `/api/report/${id}`;
+    return this.http.delete<number>(deleteReportLink);
   }
 
-  deleteReport(index: number) {
-    const url = `/api/delete_report/${index}`;
-    return this.http.delete<{ deletedId: string }>(url);
-  }
-
-  updateReport(updatedReport: Report) {
-    const url = `/api/update_report/`;
-    return this.http.put<Report>(url, { updatedReport });
+  updateReport(
+    id: number,
+    jobYesterday: string,
+    problems: string,
+    jobToday: string
+  ) {
+    const updateReportLink = `/api/report/${id}`;
+    return this.http.put<Report>(updateReportLink, {
+      jobYesterday,
+      problems,
+      jobToday
+    });
   }
 
   constructor(private http: HttpClient) {}

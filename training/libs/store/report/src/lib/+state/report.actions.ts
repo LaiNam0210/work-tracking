@@ -3,6 +3,7 @@ import { Report } from '@training/report';
 import { Update } from '@ngrx/entity';
 
 import { ReportEntity } from './report.models';
+import { ReportCreateRequest } from '@training/report-interfaces';
 
 export const loadReport = createAction('[Report] Load Report');
 
@@ -16,29 +17,19 @@ export const loadReportFailure = createAction(
   props<{ error: any }>()
 );
 
-export const loadReportId = createAction(
-  '[Report] Load Report Id',
-  props<{ id: string }>()
-);
-
-export const loadReportByIndex = createAction(
-  '[Report] Load Report By Index',
-  props<{ index: number }>()
-);
-
-export const loadReportByIndexSuccess = createAction(
+export const loadReportByIdSuccess = createAction(
   '[Report] Load Report By Index Success',
-  props<{ selectedId: string }>()
+  props<{ selectedId: number }>()
 );
 
-export const loadReportByIndexFailure = createAction(
+export const loadReportByIdFailure = createAction(
   '[Report] Load Report By Index Failure',
   props<{ error: any }>()
 );
 
 export const addReport = createAction(
   '[Report] Add Report',
-  props<{ newReport: Report }>()
+  props<{ req: ReportCreateRequest }>()
 );
 
 export const addReportSuccess = createAction(
@@ -51,32 +42,36 @@ export const addReportFailure = createAction(
   props<{ error: any }>()
 );
 
-export const deleteReport = createAction(
-  '[Report] Delete Report',
-  props<{ index: number }>()
+export const deleteSelectedReport = createAction(
+  '[Report] Delete Selected Report',
+  props<{}>()
 );
 
-export const deleteReportSuccess = createAction(
-  '[Report] Delete Report Success',
-  props<{ deletedId: string }>()
+export const deleteSelectedReportSuccess = createAction(
+  '[Report] Delete Selected Report Success',
+  props<{ deletedId: number }>()
 );
 
-export const deleteReportFailure = createAction(
-  '[Report] Delete Report Failure',
+export const deleteSelectedReportFailure = createAction(
+  '[Report] Delete Selected Report Failure',
   props<{ error: any }>()
 );
 
-export const updateReport = createAction(
-  '[Report] Update report',
-  props<{ updatedReport: Report }>()
+export const updateSelectedReport = createAction(
+  '[Report] Update Selected Report',
+  props<{
+    jobYesterday: string;
+    problems: string;
+    jobToday: string;
+  }>()
 );
 
-export const updateReportSuccess = createAction(
-  '[Report] Update Report Success',
+export const updateSelectedReportSuccess = createAction(
+  '[Report] Update Selected Report Success',
   props<{ updatedReport: Update<ReportEntity> }>()
 );
 
-export const updateReportFailure = createAction(
-  '[Report] Update Report Failure',
+export const updateSelectedReportFailure = createAction(
+  '[Report] Update Selected Report Failure',
   props<{ error: any }>()
 );

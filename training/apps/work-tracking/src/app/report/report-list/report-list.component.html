@@ -1,8 +1,7 @@
 <div>
   <training-report-item
-    *ngFor="let report of reports$ | async; let i = index"
+    *ngFor="let report of reports$ | async"
     [report]="report"
-    [index]="i"
   ></training-report-item>
   <div *ngIf="error$ | async as error">
     <h2>Error: {{ error.message ? error.message : 'Unknown error' }}</h2>

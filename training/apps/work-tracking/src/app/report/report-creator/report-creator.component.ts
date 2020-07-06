@@ -3,8 +3,8 @@ import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { Report } from '@training/report';
 import { ReportFacade } from '@training/store/report';
+import { ReportCreateRequest } from '@training/report-interfaces';
 
 @Component({
   selector: 'training-report-creator',
@@ -29,10 +29,12 @@ export class ReportCreatorComponent implements OnInit {
   ngOnInit(): void {}
 
   onReportSubmit() {
-    const jobYesterday = this.reportForm.value.jobYesterday;
-    const problems = this.reportForm.value.problems;
-    const jobToday = this.reportForm.value.jobToday;
-    this.reportFacade.addReport(new Report(jobYesterday, problems, jobToday));
+    const reportPostRequest = {
+      jobYesterday: this.reportForm.value.jobYesterday,
+      problems: this.reportForm.value.problems,
+      jobToday: this.reportForm.value.jobToday
+    } as ReportCreateRequest;
+    this.reportFacade.addReport(reportPostRequest);
     this.reportNgForm.resetForm();
   }
 }

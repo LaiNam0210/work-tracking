@@ -49,6 +49,12 @@
     },
     "store-auth": {
       "tags": []
+    },
+    "report-interfaces": {
+      "tags": []
+    },
+    "store-router": {
+      "tags": []
     }
   }
 }

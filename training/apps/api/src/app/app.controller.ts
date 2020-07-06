@@ -15,6 +15,7 @@ import { Report } from '@training/report';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { ReportCreateRequest } from '@training/report-interfaces';
 
 @Controller()
 export class AppController {
@@ -36,32 +37,33 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('report/:index')
+  @Get('report/:id')
   getReportById(@Param() params): Report {
-    return this.appService.getReportByIndex(+params.index);
+    return this.appService.getReportById(+params.id);
   }
 
-  @Post('add_report')
-  addReport(
+  @Post('report')
+  addReport(@Body('req') req: ReportCreateRequest): Report {
+    return this.appService.addReport(req);
+  }
+
+  @Delete('report/:id')
+  deleteReport(@Param() params): number {
+    return this.appService.deleteReport(+params.id);
+  }
+
+  @Put('report/:id')
+  updateReport(
+    @Param() params,
     @Body('jobYesterday') jobYesterday: string,
     @Body('problems') problems: string,
     @Body('jobToday') jobToday: string
-  ) {
-    const addedReport = this.appService.addReport(
+  ): Report {
+    return this.appService.updateReport(
+      +params.id,
       jobYesterday,
       problems,
       jobToday
     );
-    return addedReport;
-  }
-
-  @Delete('delete_report/:index')
-  deleteReport(@Param('index') index: string): { deletedId: string } {
-    return this.appService.deleteReport(+index);
-  }
-
-  @Put('update_report/')
-  updateReport(@Body('updatedReport') updatedReport: Report): Report {
-    return this.appService.updateReport(updatedReport);
   }
 }
