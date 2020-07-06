@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 
@@ -20,32 +18,19 @@ export class ReportDetailComponent implements OnInit {
     newProblems: [null, Validators.required],
     newJToday: [null, Validators.required]
   });
-  id: string;
   jobYesterday: string;
   problems: string;
   jobToday: string;
   error$ = this.reportFacade.error$;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private http: HttpClient,
-    private reportFacade: ReportFacade,
-    private fb: FormBuilder
-  ) {
-    this.route.params.subscribe(params =>
-      this.reportFacade.loadReportById(+params['id'])
-    );
-  }
+  constructor(private reportFacade: ReportFacade, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.report$ = this.reportFacade.selectedReport$;
   }
 
   onDelete(): void {
-    let id: number;
-    this.route.params.subscribe(params => (id = +params['id']));
-    this.reportFacade.deleteReport(id);
+    this.reportFacade.deleteSelectedReport();
   }
 
   onEdit(): void {
@@ -61,16 +46,10 @@ export class ReportDetailComponent implements OnInit {
 
   onReportSubmit(): void {
     this.editMode = false;
-    const subs = this.report$.subscribe((report: Report) => {
-      let id: number;
-      this.route.params.subscribe(params => (id = +params['id']));
-      this.reportFacade.updateReport(
-        id,
-        this.jobYesterday,
-        this.problems,
-        this.jobToday
-      );
-    });
-    subs.unsubscribe();
+    this.reportFacade.updateReport(
+      this.jobYesterday,
+      this.problems,
+      this.jobToday
+    );
   }
 }

@@ -13,11 +13,6 @@ export class ReportService {
     return this.http.get<Report[]>(loadReportsLink);
   }
 
-  loadReportById(id: number) {
-    const loadReportByIdLink = `/api/report/${id}`;
-    return this.http.get<Report>(loadReportByIdLink);
-  }
-
   addReport(req: ReportCreateRequest) {
     const addReportLink = `/api/report`;
     return this.http.post<Report>(addReportLink, { req });

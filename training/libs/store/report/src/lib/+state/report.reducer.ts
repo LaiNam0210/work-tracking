@@ -28,7 +28,7 @@ export const initialState: State = reportAdapter.getInitialState({
 
 const reportReducer = createReducer(
   initialState,
-  /* LOAD */
+
   on(ReportActions.loadReport, state => ({
     ...state,
     loaded: false,
@@ -42,10 +42,6 @@ const reportReducer = createReducer(
     error
   })),
 
-  /* LOAD BY INDEX */
-  on(ReportActions.loadReportById, (state, { id }) => ({
-    ...state
-  })),
   on(ReportActions.loadReportByIdSuccess, (state, { selectedId }) => ({
     ...state,
     selectedId: selectedId
@@ -55,7 +51,6 @@ const reportReducer = createReducer(
     error
   })),
 
-  /* ADD REPORT */
   on(ReportActions.addReport, (state, { req }) => ({ ...state })),
   on(ReportActions.addReportSuccess, (state, { addedReport }) =>
     reportAdapter.addOne(addedReport, { ...state })
@@ -65,28 +60,25 @@ const reportReducer = createReducer(
     error
   })),
 
-  /* DELETE REPORT */
-  on(ReportActions.deleteReport, (state, { id }) => ({ ...state })),
-  on(ReportActions.deleteReportSuccess, (state, { deletedId }) =>
+  on(ReportActions.deleteSelectedReport, state => ({ ...state })),
+  on(ReportActions.deleteSelectedReportSuccess, (state, { deletedId }) =>
     reportAdapter.removeOne(deletedId, { ...state })
   ),
-  on(ReportActions.deleteReportFailure, (state, { error }) => ({
+  on(ReportActions.deleteSelectedReportFailure, (state, { error }) => ({
     ...state,
     error
   })),
 
-  /* UPDATE REPORT */
   on(
-    ReportActions.updateReport,
-    (state, { id, jobYesterday, problems, jobToday }) => ({
-      ...state,
-      selectedId: id
+    ReportActions.updateSelectedReport,
+    (state, { jobYesterday, problems, jobToday }) => ({
+      ...state
     })
   ),
-  on(ReportActions.updateReportSuccess, (state, { updatedReport }) =>
+  on(ReportActions.updateSelectedReportSuccess, (state, { updatedReport }) =>
     reportAdapter.updateOne(updatedReport, { ...state })
   ),
-  on(ReportActions.deleteReportFailure, (state, { error }) => ({
+  on(ReportActions.deleteSelectedReportFailure, (state, { error }) => ({
     ...state,
     error
   }))
