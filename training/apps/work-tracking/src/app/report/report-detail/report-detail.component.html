@@ -40,7 +40,7 @@
         <textarea matInput formControlName="jobYesterday"></textarea>
         <mat-hint align="end">
           Character count:
-          {{ reportForm.controls['jobYesterday'].value.toString().length || 0 }}
+          {{ reportForm.value.jobYesterday?.length || 0 }}
         </mat-hint>
       </mat-form-field>
 
@@ -51,7 +51,7 @@
         <textarea matInput formControlName="problems"></textarea>
         <mat-hint align="end">
           Character count:
-          {{ reportForm.controls['problems'].value.toString().length || 0 }}
+          {{ reportForm.value.problems?.length || 0 }}
         </mat-hint>
       </mat-form-field>
 
@@ -62,7 +62,7 @@
         <textarea matInput formControlName="jobToday"></textarea>
         <mat-hint align="end">
           Character count:
-          {{ reportForm.controls['jobToday'].value.toString().length || 0 }}
+          {{ reportForm.value.jobToday?.length || 0 }}
         </mat-hint>
       </mat-form-field>
 

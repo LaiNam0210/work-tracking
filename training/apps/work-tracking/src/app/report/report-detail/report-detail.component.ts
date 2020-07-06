@@ -15,9 +15,9 @@ export class ReportDetailComponent implements OnInit {
   report$: Observable<Report>;
   editMode = false;
   reportForm = this.fb.group({
-    jobYesterday: [null, Validators.required],
-    problems: [null, Validators.required],
-    jobToday: [null, Validators.required]
+    jobYesterday: this.fb.control(null, Validators.required),
+    problems: this.fb.control(null, Validators.required),
+    jobToday: this.fb.control(null, Validators.required)
   });
   error$ = this.reportFacade.error$;
 
@@ -35,19 +35,19 @@ export class ReportDetailComponent implements OnInit {
     this.editMode = true;
     this.report$.subscribe(report => {
       if (!!report) {
-        this.reportForm.controls['jobYesterday'].setValue(report.jobYesterday);
-        this.reportForm.controls['problems'].setValue(report.problems);
-        this.reportForm.controls['jobToday'].setValue(report.jobToday);
+        this.reportForm.setValue({
+          jobYesterday: report.jobYesterday,
+          problems: report.problems,
+          jobToday: report.jobToday
+        });
       }
     });
   }
 
   onReportSubmit(): void {
     this.editMode = false;
-    this.reportFacade.updateReport({
-      jobYesterday: this.reportForm.controls['jobYesterday'].value.toString(),
-      problems: this.reportForm.controls['problems'].value.toString(),
-      jobToday: this.reportForm.controls['jobToday'].value.toString()
-    } as ReportUpdateRequest);
+    this.reportFacade.updateReport(
+      this.reportForm.value as ReportUpdateRequest
+    );
   }
 }
