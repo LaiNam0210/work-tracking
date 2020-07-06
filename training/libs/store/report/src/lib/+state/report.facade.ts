@@ -33,7 +33,7 @@ export class ReportFacade {
   }
 
   deleteSelectedReport() {
-    this.dispatch(deleteSelectedReport({}));
+    this.dispatch(deleteSelectedReport());
   }
 
   updateReport(req: ReportUpdateRequest) {

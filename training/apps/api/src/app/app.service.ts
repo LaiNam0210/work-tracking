@@ -3,7 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Report } from '@training/report';
 import {
   ReportCreateRequest,
-  ReportUpdateRequest
+  ReportUpdateRequest,
+  ReportUpdateResponse
 } from '@training/report-interfaces';
 @Injectable()
 export class AppService {
@@ -163,13 +164,16 @@ export class AppService {
     return id;
   }
 
-  updateReport(id: number, req: ReportUpdateRequest): Report {
+  updateReport(id: number, req: ReportUpdateRequest): ReportUpdateResponse {
     const selectedReport = this.getReportById(id);
     if (!!selectedReport) {
       selectedReport.jobYesterday = req.jobYesterday;
       selectedReport.problems = req.problems;
       selectedReport.jobToday = req.jobToday;
-      return selectedReport;
+      const reportUpdateResponse = {
+        id: selectedReport.id
+      } as ReportUpdateResponse;
+      return reportUpdateResponse;
     }
   }
 }

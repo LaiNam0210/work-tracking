@@ -14,6 +14,7 @@ import { ReportService } from '@training/backend';
 import { ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
 import { RouterStateUrl } from '@training/store/router';
 import { of } from 'rxjs';
+import { ReportUpdateResponse } from '@training/report-interfaces';
 
 @Injectable()
 export class ReportEffects {
@@ -87,7 +88,7 @@ export class ReportEffects {
               alert(`Deleted report with id ${deletedId}`);
               this.router.navigate(['/report']);
               return ReportActions.deleteSelectedReportSuccess({
-                deletedId: deletedId
+                deletedId
               });
             })
           );
@@ -109,9 +110,9 @@ export class ReportEffects {
         return this.reportService
           .updateReport(state[REPORT_FEATURE_KEY].selectedId, action.req)
           .pipe(
-            map(updatedReport => {
+            map((res: ReportUpdateResponse) => {
               const id = state[REPORT_FEATURE_KEY].selectedId;
-              const update: Update<Report> = {
+              const updatedReport: Update<Report> = {
                 id,
                 changes: {
                   jobYesterday: action.req.jobYesterday,
@@ -122,7 +123,7 @@ export class ReportEffects {
               alert(`Updated report with id ${id}`);
               this.router.navigate(['/report']);
               return ReportActions.updateSelectedReportSuccess({
-                updatedReport: update
+                updatedReport
               });
             })
           );

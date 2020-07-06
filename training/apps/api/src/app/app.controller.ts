@@ -17,7 +17,8 @@ import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import {
   ReportCreateRequest,
-  ReportUpdateRequest
+  ReportUpdateRequest,
+  ReportUpdateResponse
 } from '@training/report-interfaces';
 
 @Controller()
@@ -56,7 +57,10 @@ export class AppController {
   }
 
   @Put('report/:id')
-  updateReport(@Param() params, @Body('req') req: ReportUpdateRequest): Report {
+  updateReport(
+    @Param() params,
+    @Body('req') req: ReportUpdateRequest
+  ): ReportUpdateResponse {
     return this.appService.updateReport(+params.id, req);
   }
 }

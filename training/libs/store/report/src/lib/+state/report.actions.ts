@@ -46,8 +46,7 @@ export const addReportFailure = createAction(
 );
 
 export const deleteSelectedReport = createAction(
-  '[Report] Delete Selected Report',
-  props<{}>()
+  '[Report] Delete Selected Report'
 );
 
 export const deleteSelectedReportSuccess = createAction(
