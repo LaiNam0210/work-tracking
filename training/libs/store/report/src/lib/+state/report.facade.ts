@@ -10,7 +10,10 @@ import {
   deleteSelectedReport,
   updateSelectedReport
 } from './report.actions';
-import { ReportCreateRequest } from '@training/report-interfaces';
+import {
+  ReportCreateRequest,
+  ReportUpdateRequest
+} from '@training/report-interfaces';
 
 @Injectable()
 export class ReportFacade {
@@ -33,8 +36,8 @@ export class ReportFacade {
     this.dispatch(deleteSelectedReport({}));
   }
 
-  updateReport(jobYesterday: string, problems: string, jobToday: string) {
-    this.dispatch(updateSelectedReport({ jobYesterday, problems, jobToday }));
+  updateReport(req: ReportUpdateRequest) {
+    this.dispatch(updateSelectedReport({ req }));
   }
 
   dispatch(action: Action) {

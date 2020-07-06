@@ -3,7 +3,10 @@ import { Report } from '@training/report';
 import { Update } from '@ngrx/entity';
 
 import { ReportEntity } from './report.models';
-import { ReportCreateRequest } from '@training/report-interfaces';
+import {
+  ReportCreateRequest,
+  ReportUpdateRequest
+} from '@training/report-interfaces';
 
 export const loadReport = createAction('[Report] Load Report');
 
@@ -59,11 +62,7 @@ export const deleteSelectedReportFailure = createAction(
 
 export const updateSelectedReport = createAction(
   '[Report] Update Selected Report',
-  props<{
-    jobYesterday: string;
-    problems: string;
-    jobToday: string;
-  }>()
+  props<{ req: ReportUpdateRequest }>()
 );
 
 export const updateSelectedReportSuccess = createAction(

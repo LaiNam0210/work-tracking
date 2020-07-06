@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Report } from '@training/report';
 import { ReportFacade } from '@training/store/report';
+import { ReportUpdateRequest } from '@training/report-interfaces';
 
 @Component({
   selector: 'training-report-detail',
@@ -46,10 +47,11 @@ export class ReportDetailComponent implements OnInit {
 
   onReportSubmit(): void {
     this.editMode = false;
-    this.reportFacade.updateReport(
-      this.jobYesterday,
-      this.problems,
-      this.jobToday
-    );
+    const reportUpdateRequest = {
+      jobYesterday: this.jobYesterday,
+      problems: this.problems,
+      jobToday: this.jobToday
+    } as ReportUpdateRequest;
+    this.reportFacade.updateReport(reportUpdateRequest);
   }
 }

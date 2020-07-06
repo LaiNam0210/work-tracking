@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import { Report } from '@training/report';
-import { ReportCreateRequest } from '@training/report-interfaces';
+import {
+  ReportCreateRequest,
+  ReportUpdateRequest
+} from '@training/report-interfaces';
 @Injectable()
 export class AppService {
   private reports: Report[] = [
@@ -68,17 +71,12 @@ export class AppService {
     return id;
   }
 
-  updateReport(
-    id: number,
-    jobYesterday: string,
-    problems: string,
-    jobToday: string
-  ): Report {
+  updateReport(id: number, req: ReportUpdateRequest): Report {
     const selectedReport = this.getReportById(id);
     if (!!selectedReport) {
-      selectedReport.jobYesterday = jobYesterday;
-      selectedReport.problems = problems;
-      selectedReport.jobToday = jobToday;
+      selectedReport.jobYesterday = req.jobYesterday;
+      selectedReport.problems = req.problems;
+      selectedReport.jobToday = req.jobToday;
       return selectedReport;
     }
   }
