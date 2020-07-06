@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Report } from '@training/report';
 import { ReportFacade } from '@training/store/report';
@@ -11,8 +11,9 @@ import { ReportUpdateRequest } from '@training/report-interfaces';
   templateUrl: './report-detail.component.html',
   styleUrls: ['./report-detail.component.scss']
 })
-export class ReportDetailComponent implements OnInit {
+export class ReportDetailComponent implements OnInit, OnDestroy {
   report$: Observable<Report>;
+  private editReportSubscription: Subscription;
   editMode = false;
   reportForm = this.fb.group({
     jobYesterday: this.fb.control(null, Validators.required),
@@ -33,7 +34,7 @@ export class ReportDetailComponent implements OnInit {
 
   onEdit(): void {
     this.editMode = true;
-    this.report$.subscribe(report => {
+    this.editReportSubscription = this.report$.subscribe(report => {
       if (!!report) {
         this.reportForm.setValue({
           jobYesterday: report.jobYesterday,
@@ -49,5 +50,9 @@ export class ReportDetailComponent implements OnInit {
     this.reportFacade.updateReport(
       this.reportForm.value as ReportUpdateRequest
     );
+  }
+
+  ngOnDestroy() {
+    this.editReportSubscription.unsubscribe();
   }
 }
