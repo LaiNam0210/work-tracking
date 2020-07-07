@@ -16,6 +16,7 @@ import { ReportDetailComponent } from './report-detail/report-detail.component';
 import { ReportItemComponent } from './report-list/report-item/report-item.component';
 import { ReportCreatorComponent } from './report-creator/report-creator.component';
 import { ReportStartComponent } from './report-start/report-start.component';
+import { ReportFormComponent } from './report-form/report-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ReportStartComponent } from './report-start/report-start.component';
     ReportItemComponent,
     ReportCreatorComponent,
     ReportStartComponent,
-    HeaderComponent
+    HeaderComponent,
+    ReportFormComponent
   ],
   imports: [
     CommonModule,
