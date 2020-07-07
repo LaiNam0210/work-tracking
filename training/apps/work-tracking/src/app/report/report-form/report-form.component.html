@@ -1,0 +1,58 @@
+<form
+  class="report-form"
+  [formGroup]="reportForm"
+  (ngSubmit)="onReportSubmit()"
+>
+  <mat-form-field appearance="fill" class="report-field">
+    <mat-label> <mat-icon>work</mat-icon> What I did yesterday </mat-label>
+    <textarea
+      matInput
+      name="jobYesterday"
+      formControlName="jobYesterday"
+      #jobYesterday
+    ></textarea>
+    <mat-hint align="end">
+      Character count: {{ jobYesterday.value?.length || 0 }}
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="report-field">
+    <mat-label>
+      <mat-icon matPrefix>report_problem</mat-icon> Problems I have faced
+    </mat-label>
+    <textarea
+      matInput
+      name="problems"
+      formControlName="problems"
+      #problems
+    ></textarea>
+    <mat-hint align="end">
+      Character count: {{ problems.value?.length || 0 }}
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="report-field">
+    <mat-label> <mat-icon>trending_up</mat-icon> My plan for today </mat-label>
+    <textarea
+      matInput
+      name="jobToday"
+      formControlName="jobToday"
+      #jobToday
+    ></textarea>
+    <mat-hint align="end">
+      Character count: {{ jobToday.value?.length || 0 }}
+    </mat-hint>
+  </mat-form-field>
+
+  <div class="btn-container">
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      class="report-create-btn"
+      [disabled]="reportForm.invalid"
+    >
+      {{ isEditMode ? 'Update report' : 'New report' }}
+    </button>
+  </div>
+</form>

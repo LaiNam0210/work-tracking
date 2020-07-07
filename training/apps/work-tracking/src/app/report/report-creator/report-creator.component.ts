@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroupDirective, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 import { ReportFacade } from '@training/store/report';
 import { ReportCreateRequest } from '@training/report-interfaces';
@@ -12,29 +10,11 @@ import { ReportCreateRequest } from '@training/report-interfaces';
   styleUrls: ['./report-creator.component.scss']
 })
 export class ReportCreatorComponent implements OnInit {
-  reportForm = this.fb.group({
-    jobYesterday: [null, Validators.required],
-    problems: [null, Validators.required],
-    jobToday: [null, Validators.required]
-  });
-  @ViewChild(FormGroupDirective) reportNgForm;
-
-  constructor(
-    private http: HttpClient,
-    private reportFacade: ReportFacade,
-    private router: Router,
-    private fb: FormBuilder
-  ) {}
+  constructor(private http: HttpClient, private reportFacade: ReportFacade) {}
 
   ngOnInit(): void {}
 
-  onReportSubmit() {
-    const reportPostRequest = {
-      jobYesterday: this.reportForm.value.jobYesterday,
-      problems: this.reportForm.value.problems,
-      jobToday: this.reportForm.value.jobToday
-    } as ReportCreateRequest;
-    this.reportFacade.addReport(reportPostRequest);
-    this.reportNgForm.resetForm();
-  }
+  onAddReport = (req: ReportCreateRequest) => {
+    this.reportFacade.addReport(req);
+  };
 }
